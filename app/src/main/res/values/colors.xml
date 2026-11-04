@@ -1,0 +1,32 @@
+<resources>
+    <!-- Samsung One UI 7 / 8 Accent & State Colors -->
+    <color name="oneui_blue">#007AFF</color>
+    <color name="oneui_blue_pressed">#0056B3</color>
+    <color name="oneui_green">#34C759</color>
+    <color name="oneui_amber">#FF9500</color>
+    <color name="oneui_red">#FF3B30</color>
+
+    <!-- Translucent Backgrounds (80% alpha) -->
+    <color name="oneui_widget_bg_dark">#CC17171A</color>
+    <color name="oneui_widget_bg_light">#CCF2F2F7</color>
+
+    <!-- Pill Segmented Control -->
+    <color name="oneui_pill_active">#007AFF</color>
+    <color name="oneui_pill_active_text">#FFFFFF</color>
+    <color name="oneui_pill_inactive_bg_dark">#18FFFFFF</color>
+    <color name="oneui_pill_inactive_bg_light">#15000000</color>
+    <color name="oneui_pill_inactive_text_dark">#E5FFFFFF</color>
+    <color name="oneui_pill_inactive_text_light">#1C1C1E</color>
+
+    <!-- Text & Subtitles -->
+    <color name="oneui_text_primary_dark">#FFFFFF</color>
+    <color name="oneui_text_secondary_dark">#8E8E93</color>
+    <color name="oneui_text_primary_light">#1C1C1E</color>
+    <color name="oneui_text_secondary_light">#8E8E93</color>
+
+    <!-- Dividers & Ring Tracks -->
+    <color name="oneui_ring_track_dark">#25FFFFFF</color>
+    <color name="oneui_ring_track_light">#1A000000</color>
+    <color name="oneui_border_subtle_dark">#22FFFFFF</color>
+    <color name="oneui_border_subtle_light">#15000000</color>
+</resources>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">NuclearWearable</string>
+    <string name="widget_battery_name">Batería de audífonos</string>
+    <string name="widget_noise_name">Control de ruido</string>
+    <string name="widget_combo_name">Batería y control de ruido</string>
+    <string name="widget_description">Nivel de batería individual de cada componente y control de ruido ambiental.</string>
+    <string name="noise_cancelling">Cancelación de ruido</string>
+    <string name="ambient_sound">Sonido ambiente</string>
+    <string name="noise_off">Desactivado</string>
+    <string name="left_bud">L</string>
+    <string name="right_bud">R</string>
+    <string name="case_label">Estuche</string>
+    <string name="refresh">Actualizar</string>
+    <string name="connected">Conectado</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="syncing">Sincronizando…</string>
+</resources>

@@ -1,0 +1,50 @@
+# Built application files (uploaded to GitHub Releases, not git tree)
+*.apk
+*.aar
+*.ap_
+*.aab
+*.exe
+*.jar
+*.zip
+*.7z
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+build/
+app/build/
+.gradle/
+
+# Local configuration file (contains local SDK paths)
+local.properties
+
+# Proguard folder
+proguard/
+
+# Log Files
+*.log
+
+# Android Studio / IntelliJ IDEA
+*.iml
+.idea/
+.idea_modules/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Temporary analysis caches & internal notes
+graphify-out/
+.system_generated/
+AGENT_CONTEXT.md
+
+# Local release delivery folders (kept on disk, not pushed to git tree)
+releases/
+release/

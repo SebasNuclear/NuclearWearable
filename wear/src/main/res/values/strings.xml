@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NuclearWearable</string>
+    <string name="tile_status_name">Nuclear Estado</string>
+    <string name="tile_quick_controls_name">Nuclear Fila Rápida</string>
+    <string name="complication_label">Nuclear SoundConnect</string>
+</resources>

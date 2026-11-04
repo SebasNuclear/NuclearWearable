@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Visual de Iconos Vectoriales Sony | NuclearSoundConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0B0E14;
+            --surface-color: #121722;
+            --surface-hover: #182030;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(0, 230, 118, 0.4);
+            --text-primary: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --accent-green: #00E676;
+            --accent-cyan: #00D2FF;
+            --accent-gold: #D4AF37;
+            --accent-blue: #3B82F6;
+            --font-display: 'Orbitron', -apple-system, sans-serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #F1F5F9;
+            --surface-color: #FFFFFF;
+            --surface-hover: #F8FAFC;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --border-highlight: rgba(0, 200, 83, 0.6);
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.5;
+            padding: 32px 24px 64px 24px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background: rgba(0, 230, 118, 0.12);
+            color: var(--accent-green);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            font-family: var(--font-display);
+            font-size: 11px;
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+            max-width: 800px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--surface-color);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 12px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--accent-green);
+        }
+
+        .stat-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--border-highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .category-tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .category-tag.existing {
+            color: var(--text-muted);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card-title.mini {
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .design-notes {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 10px 14px;
+            border-left: 3px solid var(--accent-green);
+        }
+
+        .icons-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #000000;
+            border-radius: 12px;
+            padding: 20px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        [data-theme="light"] .icons-row {
+            background: #1E293B;
+        }
+
+        .icons-row.mini {
+            padding: 12px 8px;
+            margin-bottom: 0;
+        }
+
+        .icon-slot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .icon-canvas {
+            width: 88px;
+            height: 88px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        .icon-canvas.mini {
+            width: 64px;
+            height: 64px;
+        }
+
+        .icon-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .icon-filename {
+            font-family: var(--font-mono);
+            font-size: 9.5px;
+            color: var(--accent-cyan);
+            background: rgba(0, 210, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            word-break: break-all;
+        }
+
+        .compatible-models {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 14px;
+        }
+
+        .compat-title {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badges-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .model-badge {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .existing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .existing-card {
+            padding: 16px;
+            border-style: dashed;
+            opacity: 0.85;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <span class="brand-badge">NuclearSoundConnect • Vector Suite</span>
+                <h1>Catálogo de Iconos Sony Dedicados</h1>
+                <p class="subtitle">
+                    Iconos vectoriales nativos para Android creados a partir del diseño industrial real de cada familia de audífonos y estuches de carga Sony. Solo generados en archivo para tu previa revisión visual.
+                </p>
+            </div>
+            <div class="controls">
+                <button class="btn" id="themeToggle" onclick="toggleTheme()">
+                    <span id="themeIcon">☀️</span> Modo Claro
+                </button>
+            </div>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-num">30</div>
+                <div class="stat-desc">Archivos Vector Drawable XML generados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">16</div>
+                <div class="stat-desc">Familias de diseño industrial auténtico</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">52+</div>
+                <div class="stat-desc">Modelos de audífonos Sony cubiertos al 100%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">0</div>
+                <div class="stat-desc">Código modificado en la app (solo catálogo de revisión)</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Nuevas Familias Vectoriales Generadas (16 Diseños Dedicados)</h2>
+        <div class="cards-grid">
+            
+        <div class="card family-card" id="wf1000xm3">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">True Wireless Flagship ANC</span>
+                    <h2 class="card-title">Sony WF-1000XM3</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Audífono alargado ergonómico tipo píldora inclinada con sensor táctil circular grande y aro de cobre. Estuche alto y robusto con tapa abisagrada de cobre/oro rosa y base redondeada que no se mantiene de pie por sí sola.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 29,22 C 34,20 38,23 39,27 C 39,31 35,34 30,33 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 17,11 C 22,9 27,11 29,16 L 31,27 C 32,32 29,37 24,38 C 19,40 14,37 12,32 L 10,21 C 9,16 12,12 17,11 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16.0,18.0 A 4.0,4.0 0 1,0 24.0,18.0 A 4.0,4.0 0 1,0 16.0,18.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 18.0,18.0 A 2.0,2.0 0 1,0 22.0,18.0 A 2.0,2.0 0 1,0 18.0,18.0 Z" fill="#D4AF37" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 18.0,31.0 L 23.0,30.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Izquierdo</div>
+                <code class="icon-filename">ic_wf1000xm3_bud_left.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 9,18 L 9,34 C 9,38 13,40 17,40 L 31,40 C 35,40 39,38 39,34 L 39,18 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8,18 C 8,13.5 12.5,11 18,11 L 30,11 C 35.5,11 40,13.5 40,18 Z" fill="rgba(212,175,55,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8.0,18.0 L 40.0,18.0" fill="none" stroke="#D4AF37" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 22.0,23.5 L 26.0,23.5" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Estuche de Carga</div>
+                <code class="icon-filename">ic_wf1000xm3_case.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 19,22 C 14,20 10,23 9,27 C 9,31 13,34 18,33 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 31,11 C 26,9 21,11 19,16 L 17,27 C 16,32 19,37 24,38 C 29,40 34,37 36,32 L 38,21 C 39,16 36,12 31,11 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 24.0,18.0 A 4.0,4.0 0 1,0 32.0,18.0 A 4.0,4.0 0 1,0 24.0,18.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 26.0,18.0 A 2.0,2.0 0 1,0 30.0,18.0 A 2.0,2.0 0 1,0 26.0,18.0 Z" fill="#D4AF37" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 30.0,31.0 L 25.0,30.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Derecho</div>
+                <code class="icon-filename">ic_wf1000xm3_bud_right.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WF-1000XM3</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="wh1000xm3">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Diadema Over-Ear Flagship ANC</span>
+                    <h2 class="card-title">Sony WH-1000XM3 / XM2 / MDR-1000X</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Diadema clásica acolchada con bisagras metálicas plegables visibles, copas ovaladas circumaurales profundas y ranura de micrófono con bisel de cobre/oro en la parte superior frontal.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 11,26 C 11,11 37,11 37,26" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14,24 C 14,13 34,13 34,24" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.38)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 11.0,23.0 L 11.0,28.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 37.0,23.0 L 37.0,28.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><g transform="rotate(5, 12, 34)"><path d="M 12,26 C 15,26 17.5,29.5 17.5,34.5 C 17.5,39.5 15,43 12,43 C 9,43 6.5,39.5 6.5,34.5 C 6.5,29.5 9,26 12,26 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12.0,28.0 L 12.0,30.5" fill="none" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></g><g transform="rotate(-5, 36, 34)"><path d="M 36,26 C 39,26 41.5,29.5 41.5,34.5 C 41.5,39.5 39,43 36,43 C 33,43 30.5,39.5 30.5,34.5 C 30.5,29.5 33,26 36,26 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36.0,28.0 L 36.0,30.5" fill="none" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></g></svg></div>
+                <div class="icon-label">Auriculares Over-Ear</div>
+                <code class="icon-filename">ic_wh1000xm3_headphone.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WH-1000XM3</span> <span class="model-badge">WH-1000XM2</span> <span class="model-badge">MDR-1000X</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="linkbuds_open">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">True Wireless Open-Ring Driver</span>
+                    <h2 class="card-title">Sony LinkBuds (WF-L900 / Open WF-L910)</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Transductor de anillo abierto pasante con agujero central de 12 mm para escuchar el entorno natural, esfera superior con procesador y aleta de silicona. Estuche ultra compacto cuadrado con esquinas redondeadas y botón pulsador mecánico de apertura frontal.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 28,10 C 33,12 36,16 35,21" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 17.0,17.0 A 7.0,7.0 0 1,0 31.0,17.0 A 7.0,7.0 0 1,0 17.0,17.0 Z" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 22.8,16.0 A 1.2,1.2 0 1,0 25.2,16.0 A 1.2,1.2 0 1,0 22.8,16.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21.0,22.0 L 27.0,22.0 L 27.0,27.0 L 21.0,27.0 Z" fill="rgba(255,255,255,0.21)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16.0,32.0 A 8.0,8.0 0 1,0 32.0,32.0 A 8.0,8.0 0 1,0 16.0,32.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M 20.5,32.0 A 3.5,3.5 0 1,0 27.5,32.0 A 3.5,3.5 0 1,0 20.5,32.0 Z" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Izquierdo (Anillo)</div>
+                <code class="icon-filename">ic_linkbuds_open_bud_left.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 17.0,12.0 L 31.0,12.0 A 7.0,7.0 0 0,1 38.0,19.0 L 38.0,31.0 A 7.0,7.0 0 0,1 31.0,38.0 L 17.0,38.0 A 7.0,7.0 0 0,1 10.0,31.0 L 10.0,19.0 A 7.0,7.0 0 0,1 17.0,12.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 10.0,24.0 L 38.0,24.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 22.5,22.5 L 25.5,22.5 A 1.5,1.5 0 0,1 27.0,24.0 L 27.0,24.0 A 1.5,1.5 0 0,1 25.5,25.5 L 22.5,25.5 A 1.5,1.5 0 0,1 21.0,24.0 L 21.0,24.0 A 1.5,1.5 0 0,1 22.5,22.5 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 23.1,29.0 A 0.9,0.9 0 1,0 24.9,29.0 A 0.9,0.9 0 1,0 23.1,29.0 Z" fill="#34C759" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Estuche Pulsador</div>
+                <code class="icon-filename">ic_linkbuds_open_case.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 20,10 C 15,12 12,16 13,21" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 17.0,17.0 A 7.0,7.0 0 1,0 31.0,17.0 A 7.0,7.0 0 1,0 17.0,17.0 Z" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 22.8,16.0 A 1.2,1.2 0 1,0 25.2,16.0 A 1.2,1.2 0 1,0 22.8,16.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21.0,22.0 L 27.0,22.0 L 27.0,27.0 L 21.0,27.0 Z" fill="rgba(255,255,255,0.21)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16.0,32.0 A 8.0,8.0 0 1,0 32.0,32.0 A 8.0,8.0 0 1,0 16.0,32.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M 20.5,32.0 A 3.5,3.5 0 1,0 27.5,32.0 A 3.5,3.5 0 1,0 20.5,32.0 Z" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Derecho (Anillo)</div>
+                <code class="icon-filename">ic_linkbuds_open_bud_right.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">LinkBuds (WF-L900)</span> <span class="model-badge">LinkBuds Open (WF-L910)</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="linkbuds_s">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">True Wireless Ultra Compact ANC</span>
+                    <h2 class="card-title">Sony LinkBuds S (WF-LS900N / Fit)</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Cuerpo miniatura tipo guijarro de solo 4.8 gramos, con micrófono exterior plano enrasado con malla microacústica. Estuche cilíndrico vertical estilizado con tapa redondeada y barra LED frontal horizontal verde.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 28,21 C 33,20 37,23 38,27 C 37,31 33,33 28,32 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21,12 C 26,12 30,16 30,22 C 30,28 27,35 21,35 C 15,35 12,29 12,23 C 12,17 16,12 21,12 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16.5,19.0 A 3.5,3.5 0 1,0 23.5,19.0 A 3.5,3.5 0 1,0 16.5,19.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 19.0,19.0 A 1.0,1.0 0 1,0 21.0,19.0 A 1.0,1.0 0 1,0 19.0,19.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Izquierdo (Guijarro)</div>
+                <code class="icon-filename">ic_linkbuds_s_bud_left.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 20.0,13.0 L 28.0,13.0 A 9.0,9.0 0 0,1 37.0,22.0 L 37.0,29.0 A 9.0,9.0 0 0,1 28.0,38.0 L 20.0,38.0 A 9.0,9.0 0 0,1 11.0,29.0 L 11.0,22.0 A 9.0,9.0 0 0,1 20.0,13.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 11,21 C 16,22 32,22 37,21" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21.0,26.0 L 27.0,26.0" fill="none" stroke="#34C759" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Estuche Compacto</div>
+                <code class="icon-filename">ic_linkbuds_s_case.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 20,21 C 15,20 11,23 10,27 C 11,31 15,33 20,32 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27,12 C 22,12 18,16 18,22 C 18,28 21,35 27,35 C 33,35 36,29 36,23 C 36,17 32,12 27,12 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 24.5,19.0 A 3.5,3.5 0 1,0 31.5,19.0 A 3.5,3.5 0 1,0 24.5,19.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27.0,19.0 A 1.0,1.0 0 1,0 29.0,19.0 A 1.0,1.0 0 1,0 27.0,19.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Derecho (Guijarro)</div>
+                <code class="icon-filename">ic_linkbuds_s_bud_right.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">LinkBuds S (WF-LS900N)</span> <span class="model-badge">LinkBuds Fit (WF-LS910N)</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="ultwear">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Diadema Over-Ear Heavy Bass ANC</span>
+                    <h2 class="card-title">Sony ULT WEAR (WH-ULT900N)</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Diadema ultra acolchada robusta con almohadillas viscoelásticas masivas y botón físico 'ULT' holográfico verde neón en la copa izquierda para potenciar los subgraves.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 11,26 C 11,10 37,10 37,26" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 13,24 C 13,12 35,12 35,24" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.44)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 10.0,24.0 L 10.0,29.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="round" /><path d="M 38.0,24.0 L 38.0,29.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="round" /><g transform="rotate(6, 12, 35)"><path d="M 12,26 C 15.5,26 18.5,29.8 18.5,35 C 18.5,40.2 15.5,44 12,44 C 8.5,44 5.5,40.2 5.5,35 C 5.5,29.8 8.5,26 12,26 Z" fill="rgba(255,255,255,0.21)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8.5,32.0 L 9.0,32.0 A 1.5,1.5 0 0,1 10.5,33.5 L 10.5,36.5 A 1.5,1.5 0 0,1 9.0,38.0 L 8.5,38.0 A 1.5,1.5 0 0,1 7.0,36.5 L 7.0,33.5 A 1.5,1.5 0 0,1 8.5,32.0 Z" fill="#00E676" stroke="rgba(255,255,255,1.00)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></g><g transform="rotate(-6, 36, 35)"><path d="M 36,26 C 39.5,26 42.5,29.8 42.5,35 C 42.5,40.2 39.5,44 36,44 C 32.5,44 29.5,40.2 29.5,35 C 29.5,29.8 32.5,26 36,26 Z" fill="rgba(255,255,255,0.21)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36.0,28.0 L 36.0,31.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></g></svg></div>
+                <div class="icon-label">Diadema ULT WEAR</div>
+                <code class="icon-filename">ic_ultwear_headphone.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WH-ULT900N (ULT WEAR)</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="whch720n">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Diadema Over-Ear Slim Ligera ANC</span>
+                    <h2 class="card-title">Sony WH-CH720N / CH710N</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Diseño ultra liviano de 192g con disco de pivote circular plano característico donde la horquilla de la diadema se une a la copa, y cara exterior plana y limpia.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 12,25 C 12,12 36,12 36,25" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 9.3,26.0 A 2.2,2.2 0 1,0 13.7,26.0 A 2.2,2.2 0 1,0 9.3,26.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 34.3,26.0 A 2.2,2.2 0 1,0 38.7,26.0 A 2.2,2.2 0 1,0 34.3,26.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><g transform="rotate(6, 12, 34)"><path d="M 12,26 C 14.8,26 17,29.6 17,34.5 C 17,39.4 14.8,43 12,43 C 9.2,43 7,39.4 7,34.5 C 7,29.6 9.2,26 12,26 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12.0,30.0 L 12.0,32.5" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /></g><g transform="rotate(-6, 36, 34)"><path d="M 36,26 C 38.8,26 41,29.6 41,34.5 C 41,39.4 38.8,43 36,43 C 33.2,43 31,39.4 31,34.5 C 31,29.6 33.2,26 36,26 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36.0,30.0 L 36.0,32.5" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /></g></svg></div>
+                <div class="icon-label">Diadema CH720N</div>
+                <code class="icon-filename">ic_whch720n_headphone.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WH-CH720N</span> <span class="model-badge">WH-CH710N</span> <span class="model-badge">WH-CH700N</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="whch520">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Diadema On-Ear Supraaural Compacta</span>
+                    <h2 class="card-title">Sony WH-CH520 / CH510</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Copas circulares supraaurales pequeñas (que reposan sobre la oreja, sin cubrirla), diadema continua fina con rieles de ajuste visibles y almohadillas circulares planas.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 13,24 C 13,11 35,11 35,24" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12.0,22.0 L 12.0,28.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36.0,22.0 L 36.0,28.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M 5.5,34.0 A 6.5,6.5 0 1,0 18.5,34.0 A 6.5,6.5 0 1,0 5.5,34.0 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8.5,34.0 A 3.5,3.5 0 1,0 15.5,34.0 A 3.5,3.5 0 1,0 8.5,34.0 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.38)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 29.5,34.0 A 6.5,6.5 0 1,0 42.5,34.0 A 6.5,6.5 0 1,0 29.5,34.0 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 32.5,34.0 A 3.5,3.5 0 1,0 39.5,34.0 A 3.5,3.5 0 1,0 32.5,34.0 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.38)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Diadema On-Ear CH520</div>
+                <code class="icon-filename">ic_whch520_headphone.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WH-CH520</span> <span class="model-badge">WH-CH510</span> <span class="model-badge">WH-CH500</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="whxb910n">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Diadema Over-Ear Extra Bass ANC</span>
+                    <h2 class="card-title">Sony WH-XB910N / XB900N</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Estructura profunda con almohadillas gruesas de aislamiento y conducto de refuerzo acústico de graves (Bass Duct) visible en la arista superior de cada copa.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 11,26 C 11,11 37,11 37,26" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14,24 C 14,13 34,13 34,24" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.38)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /><g transform="rotate(6, 12, 35)"><path d="M 12,26 C 15.2,26 18,29.8 18,35 C 18,40.2 15.2,44 12,44 C 8.8,44 6,40.2 6,35 C 6,29.8 8.8,26 12,26 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 10.0,28.0 L 14.0,28.0" fill="none" stroke="#00B0FF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></g><g transform="rotate(-6, 36, 35)"><path d="M 36,26 C 39.2,26 42,29.8 42,35 C 42,40.2 39.2,44 36,44 C 32.8,44 30,40.2 30,35 C 30,29.8 32.8,26 36,26 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 34.0,28.0 L 38.0,28.0" fill="none" stroke="#00B0FF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></g></svg></div>
+                <div class="icon-label">Diadema Bass Duct XB910N</div>
+                <code class="icon-filename">ic_whxb910n_headphone.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WH-XB910N</span> <span class="model-badge">WH-XB900N</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="wfc700n">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">True Wireless Confort Diario ANC</span>
+                    <h2 class="card-title">Sony WF-C700N / C710N</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Botón circular exterior plano con rejilla de micro-malla para reducción del viento, cuerpo anatómico. Estuche tubular tipo pastillero con textura rugosa geométrica y apertura horizontal.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 28,22 C 33,21 37,24 38,28 C 37,32 33,34 28,33 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 20,13 C 25,13 29,17 29,23 C 29,29 25,34 20,34 C 15,34 12,29 12,23 C 12,17 15,13 20,13 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16.0,23.0 A 4.0,4.0 0 1,0 24.0,23.0 A 4.0,4.0 0 1,0 16.0,23.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 18.8,23.0 A 1.2,1.2 0 1,0 21.2,23.0 A 1.2,1.2 0 1,0 18.8,23.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Izquierdo</div>
+                <code class="icon-filename">ic_wfc700n_bud_left.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 18.0,15.0 L 30.0,15.0 A 10.0,10.0 0 0,1 40.0,25.0 L 40.0,25.0 A 10.0,10.0 0 0,1 30.0,35.0 L 18.0,35.0 A 10.0,10.0 0 0,1 8.0,25.0 L 8.0,25.0 A 10.0,10.0 0 0,1 18.0,15.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8.0,24.0 L 40.0,24.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14.0,19.0 L 34.0,19.0" fill="none" stroke="rgba(255,255,255,0.21)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Estuche Pastillero Rugoso</div>
+                <code class="icon-filename">ic_wfc700n_case.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 20,22 C 15,21 11,24 10,28 C 11,32 15,34 20,33 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 28,13 C 23,13 19,17 19,23 C 19,29 23,34 28,34 C 33,34 36,29 36,23 C 36,17 33,13 28,13 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 24.0,23.0 A 4.0,4.0 0 1,0 32.0,23.0 A 4.0,4.0 0 1,0 24.0,23.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 26.8,23.0 A 1.2,1.2 0 1,0 29.2,23.0 A 1.2,1.2 0 1,0 26.8,23.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Derecho</div>
+                <code class="icon-filename">ic_wfc700n_bud_right.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WF-C700N</span> <span class="model-badge">WF-C710N</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="wfc500">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">True Wireless Esférico Compacto</span>
+                    <h2 class="card-title">Sony WF-C500 / C510</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Cápsula esférica redondeada con botón mecánico circular cóncavo de gran tamaño. Estuche cilíndrico minimalista con tapa superior translúcida de efecto cristal esmerilado (frosted glass).
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 28,21 C 33,20 37,23 38,27 C 37,31 33,33 28,32 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 11.0,23.0 A 9.0,9.0 0 1,0 29.0,23.0 A 9.0,9.0 0 1,0 11.0,23.0 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14.5,23.0 A 5.0,5.0 0 1,0 24.5,23.0 A 5.0,5.0 0 1,0 14.5,23.0 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.50)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Izquierdo Esférico</div>
+                <code class="icon-filename">ic_wfc500_bud_left.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 17.0,16.0 L 31.0,16.0 A 8.0,8.0 0 0,1 39.0,24.0 L 39.0,27.0 A 8.0,8.0 0 0,1 31.0,35.0 L 17.0,35.0 A 8.0,8.0 0 0,1 9.0,27.0 L 9.0,24.0 A 8.0,8.0 0 0,1 17.0,16.0 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 9,23 C 9,18 13,15 24,15 C 35,15 39,18 39,23 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 9.0,23.0 L 39.0,23.0" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Estuche Tapa Translúcida</div>
+                <code class="icon-filename">ic_wfc500_case.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 20,21 C 15,20 11,23 10,27 C 11,31 15,33 20,32 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 19.0,23.0 A 9.0,9.0 0 1,0 37.0,23.0 A 9.0,9.0 0 1,0 19.0,23.0 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 23.5,23.0 A 5.0,5.0 0 1,0 33.5,23.0 A 5.0,5.0 0 1,0 23.5,23.0 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.50)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Derecho Esférico</div>
+                <code class="icon-filename">ic_wfc500_bud_right.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WF-C500</span> <span class="model-badge">WF-C510</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="wfsp800n">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">True Wireless Sports Arc Supporter</span>
+                    <h2 class="card-title">Sony WF-SP800N / SP700N</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Diseño deportivo impermeable IP55 con aleta curva de silicona para sujeción firme al correr (Arc Supporter) y cuerpo aerodinámico alargado. Estuche curvo robusto.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 24,16 C 30,12 36,15 37,22 C 37,25 35,27 32,27" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 28,24 C 32,23 35,26 36,30 C 35,34 32,35 28,34 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16,15 C 22,13 27,17 27,24 C 27,31 22,38 16,38 C 11,38 9,33 9,26 C 9,19 12,15 16,15 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 13,20 C 13,24 13,31 15,34" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Deportivo con Aleta (L)</div>
+                <code class="icon-filename">ic_wfsp800n_bud_left.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 8,17 C 8,14 13,12 24,12 C 35,12 40,14 40,17 L 39,33 C 39,37 34,40 24,40 C 14,40 9,37 9,33 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8,23 C 14,25 34,25 40,23" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Estuche Curvo Deportivo</div>
+                <code class="icon-filename">ic_wfsp800n_case.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 24,16 C 18,12 12,15 11,22 C 11,25 13,27 16,27" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 20,24 C 16,23 13,26 12,30 C 13,34 16,35 20,34 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 32,15 C 26,13 21,17 21,24 C 21,31 26,38 32,38 C 37,38 39,33 39,26 C 39,19 36,15 32,15 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 35,20 C 35,24 35,31 33,34" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Deportivo con Aleta (R)</div>
+                <code class="icon-filename">ic_wfsp800n_bud_right.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WF-SP800N</span> <span class="model-badge">WF-SP700N</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="wi1000x">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Banda de Cuello Collarín Premium ANC</span>
+                    <h2 class="card-title">Sony WI-1000X / WI-1000XM2</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Collarín ergonómico de herradura con puntas metálicas doradas, ranuras de fijación magnética para cables y auriculares intraurales suspendidos de alta resolución.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 12,36 C 10,26 12,12 24,12 C 36,12 38,26 36,36" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 11.5,34.0 L 12.5,34.0 A 1.5,1.5 0 0,1 14.0,35.5 L 14.0,38.5 A 1.5,1.5 0 0,1 12.5,40.0 L 11.5,40.0 A 1.5,1.5 0 0,1 10.0,38.5 L 10.0,35.5 A 1.5,1.5 0 0,1 11.5,34.0 Z" fill="#D4AF37" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 35.5,34.0 L 36.5,34.0 A 1.5,1.5 0 0,1 38.0,35.5 L 38.0,38.5 A 1.5,1.5 0 0,1 36.5,40.0 L 35.5,40.0 A 1.5,1.5 0 0,1 34.0,38.5 L 34.0,35.5 A 1.5,1.5 0 0,1 35.5,34.0 Z" fill="#D4AF37" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12,40 C 12,43 18,44 18,37" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36,40 C 36,43 30,44 30,37" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 15.5,35.0 A 2.5,2.5 0 1,0 20.5,35.0 A 2.5,2.5 0 1,0 15.5,35.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27.5,35.0 A 2.5,2.5 0 1,0 32.5,35.0 A 2.5,2.5 0 1,0 27.5,35.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Collarín Rígido Premium</div>
+                <code class="icon-filename">ic_wi1000x_neckband.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WI-1000X</span> <span class="model-badge">WI-1000XM2</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="wic100">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Banda de Cuello Cable Flexible</span>
+                    <h2 class="card-title">Sony WI-C100 / WI-C200 / WI-C310</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Cable de silicona ultraligero alrededor del cuello con dos módulos simétricos (batería y botonera integrada) y auriculares que se unen magnéticamente al frente.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 14,35 C 10,24 13,12 24,12 C 35,12 38,24 34,35" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12.7,27.0 L 13.3,27.0 A 1.2,1.2 0 0,1 14.5,28.2 L 14.5,32.8 A 1.2,1.2 0 0,1 13.3,34.0 L 12.7,34.0 A 1.2,1.2 0 0,1 11.5,32.8 L 11.5,28.2 A 1.2,1.2 0 0,1 12.7,27.0 Z" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 34.7,27.0 L 35.3,27.0 A 1.2,1.2 0 0,1 36.5,28.2 L 36.5,32.8 A 1.2,1.2 0 0,1 35.3,34.0 L 34.7,34.0 A 1.2,1.2 0 0,1 33.5,32.8 L 33.5,28.2 A 1.2,1.2 0 0,1 34.7,27.0 Z" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 13,34 C 13,42 20,41 21,37" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 35,34 C 35,42 28,41 27,37" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 19.0,36.0 A 2.0,2.0 0 1,0 23.0,36.0 A 2.0,2.0 0 1,0 19.0,36.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 25.0,36.0 A 2.0,2.0 0 1,0 29.0,36.0 A 2.0,2.0 0 1,0 25.0,36.0 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Banda Flexible y Módulos</div>
+                <code class="icon-filename">ic_wic100_neckband.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WI-C100</span> <span class="model-badge">WI-C200</span> <span class="model-badge">WI-C310</span> <span class="model-badge">WI-XB400</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="inzone_buds">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">True Wireless Gaming 2.4GHz / BT</span>
+                    <h2 class="card-title">Sony INZONE Buds (WF-G700N)</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Estética angular PlayStation 5 con carcasa bicolor blanco y negro, panel táctil capacitivo amplio e indicador LED cyan gaming. Estuche angular estilo cofre con ranura interna para dongle USB-C.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 28,22 C 33,21 37,24 38,28 C 37,32 33,34 28,33 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 13,15 L 25,11 L 30,17 L 27,34 L 16,37 L 11,28 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14,17 L 23,14 L 27,18 L 24,31 L 16,33 Z" fill="rgba(255,255,255,0.27)" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 17.0,21.0 L 19.0,28.0" fill="none" stroke="#00D2FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Gaming PS5 (L)</div>
+                <code class="icon-filename">ic_inzone_buds_bud_left.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 9,16 L 39,16 C 41,16 42,18 41,20 L 37,36 C 36,38 34,40 31,40 L 17,40 C 14,40 12,38 11,36 L 7,20 C 6,18 7,16 9,16 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 9,16 L 39,16 L 38,24 L 10,24 Z" fill="rgba(255,255,255,0.21)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 20.0,28.0 L 28.0,28.0" fill="none" stroke="#00D2FF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Estuche Bicolor Gaming</div>
+                <code class="icon-filename">ic_inzone_buds_case.xml</code>
+            </div>
+        
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 20,22 C 15,21 11,24 10,28 C 11,32 15,34 20,33 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 35,15 L 23,11 L 18,17 L 21,34 L 32,37 L 37,28 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 34,17 L 25,14 L 21,18 L 24,31 L 32,33 Z" fill="rgba(255,255,255,0.27)" stroke="rgba(255,255,255,1.00)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><path d="M 31.0,21.0 L 29.0,28.0" fill="none" stroke="#00D2FF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Auricular Gaming PS5 (R)</div>
+                <code class="icon-filename">ic_inzone_buds_bud_right.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">INZONE Buds (WF-G700N)</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="mdrxb950">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Diadema Over-Ear Club Bass Clásica</span>
+                    <h2 class="card-title">Sony MDR-XB950N1 / XB950B1</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Almohadillas cilíndricas gigantes Extra Bass con 30 mm de grosor, diadema ancha de acero inoxidable con ajuste por pasos y anillo exterior de aluminio pulido.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 10,26 C 10,9 38,9 38,26" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M 13,24 C 13,11 35,11 35,24" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.44)" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round" /><g transform="rotate(5, 12, 35)"><path d="M 11.0,27.0 L 13.0,27.0 A 5.0,5.0 0 0,1 18.0,32.0 L 18.0,37.0 A 5.0,5.0 0 0,1 13.0,42.0 L 11.0,42.0 A 5.0,5.0 0 0,1 6.0,37.0 L 6.0,32.0 A 5.0,5.0 0 0,1 11.0,27.0 Z" fill="rgba(255,255,255,0.21)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8.0,29.0 L 8.0,40.0" fill="none" stroke="#00E676" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></g><g transform="rotate(-5, 36, 35)"><path d="M 35.0,27.0 L 37.0,27.0 A 5.0,5.0 0 0,1 42.0,32.0 L 42.0,37.0 A 5.0,5.0 0 0,1 37.0,42.0 L 35.0,42.0 A 5.0,5.0 0 0,1 30.0,37.0 L 30.0,32.0 A 5.0,5.0 0 0,1 35.0,27.0 Z" fill="rgba(255,255,255,0.21)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 40.0,29.0 L 40.0,40.0" fill="none" stroke="#00E676" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></g></svg></div>
+                <div class="icon-label">Diadema Cilíndrica Extra Bass</div>
+                <code class="icon-filename">ic_mdrxb950_headphone.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">MDR-XB950N1</span> <span class="model-badge">MDR-XB950B1</span> <span class="model-badge">MDR-XB650BT</span></div>
+            </div>
+        </div>
+    
+        <div class="card family-card" id="whh910n">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="category-tag">Diadema Over-Ear Unibody Slim ANC</span>
+                    <h2 class="card-title">Sony WH-H910N / H900N (h.ear on)</h2>
+                </div>
+            </div>
+            <div class="design-notes">
+                <strong>Diseño físico investigado:</strong> Silueta fluida unibody continua donde la curvatura de la diadema se fusiona directamente con las copas sin escalones ni bisagras visibles, con acentos sutiles bicolor.
+            </div>
+            <div class="icons-row">
+                
+            <div class="icon-slot">
+                <div class="icon-canvas"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="84" height="84"><path d="M 11,28 C 11,11 37,11 37,28" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 10,25 C 15,25 17,29 17,35 C 17,41 15,44 10,44 C 6,44 6,38 6,35 C 6,30 7,25 10,25 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 38,25 C 33,25 31,29 31,35 C 31,41 33,44 38,44 C 42,44 42,38 42,35 C 42,30 41,25 38,25 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8.5,35.0 A 1.5,1.5 0 1,0 11.5,35.0 A 1.5,1.5 0 1,0 8.5,35.0 Z" fill="#FFB703" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36.5,35.0 A 1.5,1.5 0 1,0 39.5,35.0 A 1.5,1.5 0 1,0 36.5,35.0 Z" fill="#FFB703" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Diadema Unibody h.ear on</div>
+                <code class="icon-filename">ic_whh910n_headphone.xml</code>
+            </div>
+        
+            </div>
+            <div class="compatible-models">
+                <span class="compat-title">Modelos cubiertos por este diseño:</span>
+                <div class="badges-wrap"><span class="model-badge">WH-H910N (h.ear on 3)</span> <span class="model-badge">WH-H900N (h.ear on 2)</span></div>
+            </div>
+        </div>
+    
+        </div>
+
+        <h2 class="section-title">Modelos de Referencia Ya Existentes en la App</h2>
+        <div class="existing-grid">
+            
+        <div class="card existing-card">
+            <span class="category-tag existing">En App (Flagship TWS 2026)</span>
+            <h3 class="card-title mini">Sony WF-1000XM6</h3>
+            <div class="icons-row mini">
+                
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 28,24 C 33,23 37,25 38,29 C 37,33 33,35 28,34 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21,10 C 25.4,10 29,13.6 29,18 L 29,30 C 29,34.4 25.4,38 21,38 C 16.6,38 13,34.4 13,30 L 13,18 C 13,13.6 16.6,10 21,10 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21,12.8 A 3.2,3.2 0 1,1 20.9,12.8 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21,14.9 A 1.1,1.1 0 1,1 20.9,14.9 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21,28.8 A 3.2,3.2 0 1,1 20.9,28.8 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21,30.9 A 1.1,1.1 0 1,1 20.9,30.9 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16,15 C 15,19 15,29 16,33" fill="none" stroke="rgba(255,255,255,0.31)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">L</div>
+            </div>
+        
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 7,16 L 7,35 C 7,37.5 10.5,39 15,39 L 33,39 C 37.5,39 41,37.5 41,35 L 41,16 C 41,13.5 37.5,12 33,12 L 15,12 C 10.5,12 7,13.5 7,16 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 15,12 L 33,12 C 37.5,12 41,13.8 41,16 C 41,18.2 37.5,20 33,20 L 15,20 C 10.5,20 7,18.2 7,16 C 7,13.8 10.5,12 15,12 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 7,22 C 11,24.5 17,25.5 24,25.5 C 31,25.5 37,24.5 41,22" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 9.5,23.5 L 9.5,35" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Case</div>
+            </div>
+        
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 20,24 C 15,23 11,25 10,29 C 11,33 15,35 20,34 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27,10 C 31.4,10 35,13.6 35,18 L 35,30 C 35,34.4 31.4,38 27,38 C 22.6,38 19,34.4 19,30 L 19,18 C 19,13.6 22.6,10 27,10 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27,12.8 A 3.2,3.2 0 1,1 26.9,12.8 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27,14.9 A 1.1,1.1 0 1,1 26.9,14.9 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27,28.8 A 3.2,3.2 0 1,1 26.9,28.8 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27,30.9 A 1.1,1.1 0 1,1 26.9,30.9 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 32,15 C 33,19 33,29 32,33" fill="none" stroke="rgba(255,255,255,0.31)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">R</div>
+            </div>
+        
+            </div>
+        </div>
+    
+        <div class="card existing-card">
+            <span class="category-tag existing">En App (Flagship Over-Ear 2026)</span>
+            <h3 class="card-title mini">Sony WH-1000XM6</h3>
+            <div class="icons-row mini">
+                
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 11,26 C 11,12 37,12 37,26" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14,24 C 14,14 34,14 34,24" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.38)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /><path d="M 11,23 L 11,28" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 37,23 L 37,28" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 11,27 A 0.8,0.8 0 1,1 10.9,27 Z" fill="#D4AF37" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 37,27 A 0.8,0.8 0 1,1 36.9,27 Z" fill="#D4AF37" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><g transform="rotate(6, 12, 34)"><path d="M 12,26 C 14.8,26 17,29.8 17,34.5 C 17,39.2 14.8,43 12,43 C 9.2,43 7,39.2 7,34.5 C 7,29.8 9.2,26 12,26 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 7.8,27.5 C 9,27.5 10,30.6 10,34.5 C 10,38.4 9,41.5 7.8,41.5 C 6.5,41.5 5.5,38.4 5.5,34.5 C 5.5,30.6 6.5,27.5 7.8,27.5 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /></g><g transform="rotate(-6, 36, 34)"><path d="M 36,26 C 38.8,26 41,29.8 41,34.5 C 41,39.2 38.8,43 36,43 C 33.2,43 31,39.2 31,34.5 C 31,29.8 33.2,26 36,26 Z" fill="rgba(255,255,255,0.19)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 40.2,27.5 C 41.5,27.5 42.5,30.6 42.5,34.5 C 42.5,38.4 41.5,41.5 40.2,41.5 C 39,41.5 38,38.4 38,34.5 C 38,30.6 39,27.5 40.2,27.5 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 40.2,32.3 A 2.2,2.2 0 1,1 40.1,32.3 Z" fill="rgba(255,255,255,0.31)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></g></svg></div>
+                <div class="icon-label">Diadema</div>
+            </div>
+        
+            </div>
+        </div>
+    
+        <div class="card existing-card">
+            <span class="category-tag existing">En App (Flagship TWS 2023)</span>
+            <h3 class="card-title mini">Sony WF-1000XM5</h3>
+            <div class="icons-row mini">
+                
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 27,22 C 31,21 35,23 36,27 C 35,31 31,33 27,32 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21,12 C 25.5,12 28.5,15 28.5,20 C 28.5,27 24,36 19,36 C 14.5,36 12,31 12,25 C 12,18 16,12 21,12 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 18,14.5 C 20,13.8 22.5,13.8 24,15 C 23.5,16.5 21,17 19,16 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 19.5,15 L 22.5,15.5" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 19,30 A 1,1 0 1,1 18.9,30 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14.5,18 C 14,23 15,28 17.5,32" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">L</div>
+            </div>
+        
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 8,21 C 8,15.5 14,13 24,13 C 34,13 40,15.5 40,21 L 40,31 C 40,35.5 35,37.5 30,37.5 L 18,37.5 C 13,37.5 8,35.5 8,31 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 24,13.5 C 32,13.5 39,15.5 39,18.5 C 39,21.5 32,23.5 24,23.5 C 16,23.5 9,21.5 9,18.5 C 9,15.5 16,13.5 24,13.5 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21.5,18 L 26.5,18" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 8,22 C 12,24.5 17,25.5 24,25.5 C 31,25.5 36,24.5 40,22" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 24,29.5 A 1,1 0 1,1 23.9,29.5 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Case</div>
+            </div>
+        
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 21,22 C 17,21 13,23 12,27 C 13,31 17,33 21,32 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 27,12 C 22.5,12 19.5,15 19.5,20 C 19.5,27 24,36 29,36 C 33.5,36 36,31 36,25 C 36,18 32,12 27,12 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 30,14.5 C 28,13.8 25.5,13.8 24,15 C 24.5,16.5 27,17 29,16 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 28.5,15 L 25.5,15.5" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 29,30 A 1,1 0 1,1 28.9,30 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 33.5,18 C 34,23 33,28 30.5,32" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">R</div>
+            </div>
+        
+            </div>
+        </div>
+    
+        <div class="card existing-card">
+            <span class="category-tag existing">En App (Flagship Over-Ear 2022)</span>
+            <h3 class="card-title mini">Sony WH-1000XM5</h3>
+            <div class="icons-row mini">
+                
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 12,25 C 12,12 36,12 36,25" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 15,23.5 C 15,14 33,14 33,23.5" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.25)" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12,24 L 12,29" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36,24 L 36,29" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12,28.5 A 0.8,0.8 0 1,1 11.9,28.5 Z" fill="#D4AF37" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36,28.5 A 0.8,0.8 0 1,1 35.9,28.5 Z" fill="#D4AF37" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12,27 C 15,27 17.5,30 17.5,35 C 17.5,40 15,43 12,43 C 9,43 6.5,40 6.5,35 C 6.5,30 9,27 12,27 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 7,33 L 7,37" fill="none" stroke="#D4AF37" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36,27 C 39,27 41.5,30 41.5,35 C 41.5,40 39,43 36,43 C 33,43 30.5,40 30.5,35 C 30.5,30 33,27 36,27 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 41,33 L 41,37" fill="none" stroke="#D4AF37" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Diadema</div>
+            </div>
+        
+            </div>
+        </div>
+    
+        <div class="card existing-card">
+            <span class="category-tag existing">En App (Flagship TWS 2021)</span>
+            <h3 class="card-title mini">Sony WF-1000XM4</h3>
+            <div class="icons-row mini">
+                
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 28,21 C 33,20 37,22 38,26 C 37,30 33,32 28,31 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 20,11 C 25.5,11 30,15.5 30,22 C 30,29 25,35 19,35 C 13.5,35 10,29.5 10,23 C 10,16.5 14.5,11 20,11 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16,14.8 A 3.6,3.6 0 1,1 15.9,14.8 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16,16.2 A 2.2,2.2 0 1,1 15.9,16.2 Z" fill="#D4AF37" stroke="#D4AF37" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 16,17.5 A 0.9,0.9 0 1,1 15.9,17.5 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 14,19 C 13,23 14,29 17,32" fill="none" stroke="rgba(255,255,255,0.31)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">L</div>
+            </div>
+        
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 6,20 C 6,14.5 13,11 24,11 C 35,11 42,14.5 42,20 L 42,33 C 42,36.5 37,38.5 32,38.5 L 16,38.5 C 11,38.5 6,36.5 6,33 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 24,11.5 C 33,11.5 41,13.8 41,17 C 41,20.2 33,22.5 24,22.5 C 15,22.5 7,20.2 7,17 C 7,13.8 15,11.5 24,11.5 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 21.5,16.5 L 26.5,16.5" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 6,21 C 10,24 16,25.5 24,25.5 C 32,25.5 38,24 42,21" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 22,30.5 L 26,30.5" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Case</div>
+            </div>
+        
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 20,21 C 15,20 11,22 10,26 C 11,30 15,32 20,31 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 28,11 C 22.5,11 18,15.5 18,22 C 18,29 23,35 29,35 C 34.5,35 38,29.5 38,23 C 38,16.5 33.5,11 28,11 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 32,14.8 A 3.6,3.6 0 1,1 31.9,14.8 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,1.00)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /><path d="M 32,16.2 A 2.2,2.2 0 1,1 31.9,16.2 Z" fill="#D4AF37" stroke="#D4AF37" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 32,17.5 A 0.9,0.9 0 1,1 31.9,17.5 Z" fill="rgba(255,255,255,1.00)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /><path d="M 34,19 C 35,23 34,29 31,32" fill="none" stroke="rgba(255,255,255,0.31)" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">R</div>
+            </div>
+        
+            </div>
+        </div>
+    
+        <div class="card existing-card">
+            <span class="category-tag existing">En App (Flagship Over-Ear 2020)</span>
+            <h3 class="card-title mini">Sony WH-1000XM4</h3>
+            <div class="icons-row mini">
+                
+            <div class="icon-slot mini">
+                <div class="icon-canvas mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="64" height="64"><path d="M 12,25 C 12,11 36,11 36,25" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 15,23 C 15,13.5 33,13.5 33,23" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.38)" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12,23 L 12,27" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36,23 L 36,27" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M 34.5,23.5 L 37.5,23.5" fill="none" stroke="#D4AF37" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" /><path d="M 12,27 C 12,30 8,31 8,35 C 8,39 12,40 12,42" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 36,27 C 36,30 40,31 40,35 C 40,39 36,40 36,42" fill="none" stroke="rgba(255,255,255,1.00)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /><path d="M 13,27 C 16,27 18,30.5 18,35 C 18,39.5 16,43 13,43 C 10,43 8,39.5 8,35 C 8,30.5 10,27 13,27 Z" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 35,27 C 38,27 40,30.5 40,35 C 40,39.5 38,43 35,43 C 32,43 30,39.5 30,35 C 30,30.5 32,27 35,27 Z" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,1.00)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" /><path d="M 37.5,33.5 A 1.8,1.8 0 1,1 37.4,33.5 Z" fill="rgba(255,255,255,0.25)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+                <div class="icon-label">Diadema</div>
+            </div>
+        
+            </div>
+        </div>
+    
+        </div>
+
+        <footer>
+            NuclearSoundConnect Vector Design Suite • Creado para la revisión de Sebastián • Directorio: <code>Sony_Headphones_Vector_Icons/</code>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', target);
+            document.getElementById('themeIcon').textContent = target === 'light' ? '🌙' : '☀️';
+            document.getElementById('themeToggle').innerHTML = (target === 'light' ? '🌙 Modo Oscuro' : '☀️ Modo Claro');
+        }
+    </script>
+</body>
+</html>

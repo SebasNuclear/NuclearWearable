@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Estuche ultra compacto cuadrado con esquinas muy redondeadas LinkBuds -->
+    <path
+        android:fillColor="#15FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:pathData="M 17.0,12.0 L 31.0,12.0 A 7.0,7.0 0 0,1 38.0,19.0 L 38.0,31.0 A 7.0,7.0 0 0,1 31.0,38.0 L 17.0,38.0 A 7.0,7.0 0 0,1 10.0,31.0 L 10.0,19.0 A 7.0,7.0 0 0,1 17.0,12.0 Z" />
+    <!-- Línea de corte de apertura frontal tipo concha -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:pathData="M 10.0,24.0 L 38.0,24.0" />
+    <!-- Botón mecánico de liberación frontal característico de LinkBuds -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 22.5,22.5 L 25.5,22.5 A 1.5,1.5 0 0,1 27.0,24.0 L 27.0,24.0 A 1.5,1.5 0 0,1 25.5,25.5 L 22.5,25.5 A 1.5,1.5 0 0,1 21.0,24.0 L 21.0,24.0 A 1.5,1.5 0 0,1 22.5,22.5 Z" />
+    <!-- Indicador LED sutil -->
+    <path
+        android:fillColor="#34C759"
+        android:pathData="M 23.1,29.0 A 0.9,0.9 0 1,0 24.9,29.0 A 0.9,0.9 0 1,0 23.1,29.0 Z" />
+</vector>

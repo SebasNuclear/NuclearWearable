@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Icono Atómico Oficial Nuclear (Verde Atómico / Oro Solar) -->
+    <path
+        android:fillColor="#FFB703"
+        android:pathData="M12,12m-2,0a2,2 0 1,1 4,0a2,2 0 1,1 -4,0"/>
+    <path
+        android:fillColor="#00E676"
+        android:pathData="M12,2a4,4 0 0,0 -3.46,2l2.36,4.09A2,2 0 0,1 12,8a2,2 0 0,1 1.1,0.09L15.46,4A4,4 0 0,0 12,2zM4,16a4,4 0 0,0 3.46,2l1.1,-4.09A2,2 0 0,1 8,13a2,2 0 0,1 0,-1.1L4.54,9.81A4,4 0 0,0 4,16zM20,16a4,4 0 0,0 -0.54,-6.19L16,11.9a2,2 0 0,1 0,1.1l1.1,4.09A4,4 0 0,0 20,16z"/>
+</vector>

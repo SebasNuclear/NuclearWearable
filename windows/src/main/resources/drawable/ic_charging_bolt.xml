@@ -1,0 +1,10 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="14dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Green fast charge bolt -->
+    <path
+        android:fillColor="#34C759"
+        android:pathData="M11,2 L4,13 L11,13 L9,22 L18,10 L12,10 Z" />
+</vector>

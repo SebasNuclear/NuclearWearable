@@ -1,0 +1,24 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Almohadilla intraural C500 -->
+    <path
+        android:fillColor="#24FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.3"
+        android:pathData="M 28,21 C 33,20 37,23 38,27 C 37,31 33,33 28,32 Z" />
+    <!-- Cápsula esférica redondeada compacta -->
+    <path
+        android:fillColor="#1EFFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.4"
+        android:pathData="M 11.0,23.0 A 9.0,9.0 0 1,0 29.0,23.0 A 9.0,9.0 0 1,0 11.0,23.0 Z" />
+    <!-- Botón mecánico circular grande característico -->
+    <path
+        android:fillColor="#10FFFFFF"
+        android:strokeColor="#80FFFFFF"
+        android:strokeWidth="1.0"
+        android:pathData="M 14.5,23.0 A 5.0,5.0 0 1,0 24.5,23.0 A 5.0,5.0 0 1,0 14.5,23.0 Z" />
+</vector>

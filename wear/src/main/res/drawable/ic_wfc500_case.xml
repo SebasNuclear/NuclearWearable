@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Base cilíndrica de estuche C500 -->
+    <path
+        android:fillColor="#15FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:pathData="M 17.0,16.0 L 31.0,16.0 A 8.0,8.0 0 0,1 39.0,24.0 L 39.0,27.0 A 8.0,8.0 0 0,1 31.0,35.0 L 17.0,35.0 A 8.0,8.0 0 0,1 9.0,27.0 L 9.0,24.0 A 8.0,8.0 0 0,1 17.0,16.0 Z" />
+    <!-- Tapa superior translúcida característica C500 (frosted glass) -->
+    <path
+        android:fillColor="#30FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.2"
+        android:pathData="M 9,23 C 9,18 13,15 24,15 C 35,15 39,18 39,23 Z" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:pathData="M 9.0,23.0 L 39.0,23.0" />
+</vector>
