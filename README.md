@@ -1,20 +1,13 @@
 <div align="center">
 
-<img src="windows/src/main/resources/drawable/ic_app_icon.png" alt="NuclearWearable Logo" width="88" style="border-radius: 20px;" />
+<img src="docs/app_logo.png" alt="NuclearWearable Logo" width="112" style="border-radius: 24px;" />
 
 # NuclearWearable
 
-### Ecosistema Open-Source multiplataforma para audífonos Sony Bluetooth
+<strong>El ecosistema open-source, moderno y sin telemetría para audífonos inalámbricos Sony en Android, Wear OS, Windows 10/11 y Linux.</strong><br />
+<em>The open-source, modern, telemetry-free ecosystem for Sony wireless headphones on Android, Wear OS, Windows 10/11, and Linux.</em>
 
-[![Version](https://img.shields.io/badge/Version-1.1.0-00E676?style=for-the-badge)](https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.1.0)
-[![Android](https://img.shields.io/badge/Android-12%2B%20(API%2031--35)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](app/)
-[![Wear OS](https://img.shields.io/badge/Wear%20OS-3%2B%20Standalone-4285F4?style=for-the-badge&logo=wearos&logoColor=white)](wear/)
-[![Windows](https://img.shields.io/badge/Windows-x64%20Portable-0078D6?style=for-the-badge&logo=windows&logoColor=white)](windows/)
-[![Linux](https://img.shields.io/badge/Linux-x64%20Rootless-FCC624?style=for-the-badge&logo=linux&logoColor=black)](linux/)
-[![License](https://img.shields.io/badge/License-MIT-94A3B8?style=for-the-badge)](LICENSE)
-
-**Control nativo directo vía protocolo Sony MDR V1/V2 (RFCOMM / SPP).**  
-**100% offline · Cero telemetría · Sin permiso de Internet · Sin GPS · Sin nube.**
+<br />
 
 [📥 Descargas v1.1.0](https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.1.0) · [📸 Capturas](#-capturas-del-ecosistema) · [🎧 Modelos Compatibles](#-modelos-sony-compatibles-52) · [🛠️ Compilar](#-compilación-desde-código-fuente) · [🇺🇸 English](#-english-overview)
 
@@ -170,8 +163,22 @@ cd linux
 
 ---
 
-<div align="center">
+## 🏷️ Especificaciones / Specifications
 
-Publicado bajo licencia [**MIT**](LICENSE) · Creado por **SebasNuclear**
+<p align="center">
+  <a href="https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.1.0"><img src="https://img.shields.io/badge/Version-1.1.0-00E676?style=for-the-badge&logo=github&logoColor=black" alt="Version 1.1.0" /></a>
+  <a href="app/"><img src="https://img.shields.io/badge/Android-12+_(API_31--35)-34C759?style=for-the-badge&logo=android&logoColor=white" alt="Android Support" /></a>
+  <a href="wear/"><img src="https://img.shields.io/badge/Wear_OS-3.0+_(API_30--35)-4285F4?style=for-the-badge&logo=wearos&logoColor=white" alt="Wear OS Support" /></a>
+  <a href="windows/"><img src="https://img.shields.io/badge/Windows-10_%2F_11_(x64)-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows Support" /></a>
+  <a href="linux/"><img src="https://img.shields.io/badge/Linux-x64_Rootless-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux Support" /></a>
+  <img src="https://img.shields.io/badge/Telemetry-0%25_(100%25_Offline)-007AFF?style=for-the-badge&logo=shield&logoColor=white" alt="Private & Offline" />
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-94A3B8?style=for-the-badge" alt="MIT License" /></a>
+</p>
 
-</div>
+---
+
+## 📄 Licencia / License
+
+MIT License © 2026 **SebasNuclear**. Consulte el archivo [**`LICENSE`**](LICENSE) para más información.
+
+*Sony, Walkman, LinkBuds, INZONE and model names are registered trademarks of Sony Group Corporation. This project is an independent open-source implementation and is not affiliated with Sony.*
