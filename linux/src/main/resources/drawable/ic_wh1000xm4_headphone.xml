@@ -1,0 +1,77 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Diadema / Headband Arch (Acolchada gruesa clásica XM4) -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 12,25 C 12,11 36,11 36,25" />
+    <path
+        android:fillColor="#20FFFFFF"
+        android:strokeColor="#60FFFFFF"
+        android:strokeWidth="0.9"
+        android:pathData="M 15,23 C 15,13.5 33,13.5 33,23" />
+
+    <!-- Deslizadores escalonados característicos del XM4 (ajuste con clics) -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 12,23 L 12,27" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 36,23 L 36,27" />
+    
+    <!-- Grabado SONY en dorado en la base del deslizador -->
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="0.9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 34.5,23.5 L 37.5,23.5" />
+
+    <!-- Horquillas / Brazos plegables envolventes (Yolks) clásicos del XM4 -->
+    <!-- Brazo izquierdo que abraza la copa -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 12,27 C 12,30 8,31 8,35 C 8,39 12,40 12,42" />
+    <!-- Brazo derecho que abraza la copa -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 36,27 C 36,30 40,31 40,35 C 40,39 36,40 36,42" />
+
+    <!-- Copa Izquierda (Ovalo con almohadilla) -->
+    <path
+        android:fillColor="#28FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.3"
+        android:pathData="M 13,27 C 16,27 18,30.5 18,35 C 18,39.5 16,43 13,43 C 10,43 8,39.5 8,35 C 8,30.5 10,27 13,27 Z" />
+
+    <!-- Copa Derecha (Ovalo con sensor táctil) -->
+    <path
+        android:fillColor="#28FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.3"
+        android:pathData="M 35,27 C 38,27 40,30.5 40,35 C 40,39.5 38,43 35,43 C 32,43 30,39.5 30,35 C 30,30.5 32,27 35,27 Z" />
+    
+    <!-- Sensor táctil frontal exterior -->
+    <path
+        android:fillColor="#40FFFFFF"
+        android:pathData="M 37.5,33.5 A 1.8,1.8 0 1,1 37.4,33.5 Z" />
+
+</vector>

@@ -1,0 +1,59 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Diadema acolchada muy gruesa ULT WEAR -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2.8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 11,26 C 11,10 37,10 37,26" />
+    <path
+        android:fillColor="#2AFFFFFF"
+        android:strokeColor="#70FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M 13,24 C 13,12 35,12 35,24" />
+    <!-- Conectores reforzados robustos -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="square"
+        android:fillColor="#00000000"
+        android:pathData="M 10.0,24.0 L 10.0,29.0" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="square"
+        android:fillColor="#00000000"
+        android:pathData="M 38.0,24.0 L 38.0,29.0" />
+    <!-- Copa Izquierda robusta con gran almohadilla Over-Ear -->
+    <group android:pivotX="12" android:pivotY="35" android:rotation="6">
+        <path
+            android:fillColor="#35FFFFFF"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="1.5"
+            android:pathData="M 12,26 C 15.5,26 18.5,29.8 18.5,35 C 18.5,40.2 15.5,44 12,44 C 8.5,44 5.5,40.2 5.5,35 C 5.5,29.8 8.5,26 12,26 Z" />
+        <!-- Botón ULT prominente característico en la copa izquierda -->
+        <path
+            android:fillColor="#00E676"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="0.8"
+            android:pathData="M 8.5,32.0 L 9.0,32.0 A 1.5,1.5 0 0,1 10.5,33.5 L 10.5,36.5 A 1.5,1.5 0 0,1 9.0,38.0 L 8.5,38.0 A 1.5,1.5 0 0,1 7.0,36.5 L 7.0,33.5 A 1.5,1.5 0 0,1 8.5,32.0 Z" />
+    </group>
+    <!-- Copa Derecha simétrica -->
+    <group android:pivotX="36" android:pivotY="35" android:rotation="-6">
+        <path
+            android:fillColor="#35FFFFFF"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="1.5"
+            android:pathData="M 36,26 C 39.5,26 42.5,29.8 42.5,35 C 42.5,40.2 39.5,44 36,44 C 32.5,44 29.5,40.2 29.5,35 C 29.5,29.8 32.5,26 36,26 Z" />
+        <path
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="1.2"
+            android:strokeLineCap="round"
+            android:fillColor="#00000000"
+            android:pathData="M 36.0,28.0 L 36.0,31.0" />
+    </group>
+</vector>

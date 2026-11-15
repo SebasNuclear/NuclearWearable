@@ -69,15 +69,15 @@ class NuclearNoiseWidgetProvider : AppWidgetProvider() {
         super.onReceive(context, intent)
         when (intent.action) {
             ACTION_NOISE_ANC -> {
-                performHapticFeedback(context)
+                WidgetPrefsHelper.performHapticFeedback(context)
                 SonyForegroundService.startSetMode(context, NoiseControlMode.ANC)
             }
             ACTION_NOISE_OFF -> {
-                performHapticFeedback(context)
+                WidgetPrefsHelper.performHapticFeedback(context)
                 SonyForegroundService.startSetMode(context, NoiseControlMode.OFF)
             }
             ACTION_NOISE_AMBIENT -> {
-                performHapticFeedback(context)
+                WidgetPrefsHelper.performHapticFeedback(context)
                 SonyForegroundService.startSetMode(context, NoiseControlMode.AMBIENT)
             }
             Intent.ACTION_USER_PRESENT -> {
@@ -102,18 +102,33 @@ class NuclearNoiseWidgetProvider : AppWidgetProvider() {
         val bgBitmap = WidgetPrefsHelper.renderBackgroundBitmap(context, appWidgetId, widthPx = widthPx, heightPx = heightPx)
         views.setImageViewBitmap(R.id.iv_widget_bg, bgBitmap)
 
-        // 2. Cabecera (Nombre centrado)
-        views.setTextViewText(R.id.tv_device_name, state.deviceName)
+        // 2. Cabecera (Nombre centrado con estado de conexión)
+        val hasAnc = state.effectiveHasAnc
+        val isConnected = state.isConnected
+        val headerText = when {
+            !isConnected -> "${state.deviceName} • Desconectado"
+            !hasAnc -> "${state.deviceName} • Sin soporte ANC"
+            else -> state.deviceName
+        }
+        views.setTextViewText(R.id.tv_device_name, headerText)
         views.setTextColor(R.id.tv_device_name, if (isDark) Color.WHITE else 0xFF1C1C1E.toInt())
 
         // 3. Píldora segmentada con estética One UI
-        val isAnc = state.noiseMode == NoiseControlMode.ANC
-        val isOff = state.noiseMode == NoiseControlMode.OFF
-        val isAmbient = state.noiseMode == NoiseControlMode.AMBIENT
+        val isAnc = isConnected && hasAnc && state.noiseMode == NoiseControlMode.ANC
+        val isOff = isConnected && hasAnc && state.noiseMode == NoiseControlMode.OFF
+        val isAmbient = isConnected && hasAnc && state.noiseMode == NoiseControlMode.AMBIENT
 
         val inactiveBgRes = if (isDark) R.drawable.pill_segment_inactive else R.drawable.pill_segment_inactive_light
-        val inactiveTextColor = if (isDark) Color.WHITE else 0xFF1C1C1E.toInt()
-        val inactiveIconColor = if (isDark) Color.WHITE else 0xFF222222.toInt()
+        val inactiveTextColor = if (isDark) {
+            if (!isConnected || !hasAnc) 0x66FFFFFF else Color.WHITE
+        } else {
+            if (!isConnected || !hasAnc) 0x661C1C1E.toInt() else 0xFF1C1C1E.toInt()
+        }
+        val inactiveIconColor = if (isDark) {
+            if (!isConnected || !hasAnc) 0x66FFFFFF else Color.WHITE
+        } else {
+            if (!isConnected || !hasAnc) 0x66222222.toInt() else 0xFF222222.toInt()
+        }
         val inactiveTint = if (isDark) 0x18FFFFFF else 0x15000000
         val accentColor = WidgetPrefsHelper.getAccentColor(context)
 
@@ -150,11 +165,6 @@ class NuclearNoiseWidgetProvider : AppWidgetProvider() {
         views.setTextColor(R.id.tv_ambient_text, if (isAmbient) Color.WHITE else inactiveTextColor)
         views.setInt(R.id.iv_ambient_icon, "setColorFilter", if (isAmbient) Color.WHITE else inactiveIconColor)
 
-        // Intents de botones de control
-        views.setOnClickPendingIntent(R.id.btn_anc, createBroadcastPendingIntent(context, ACTION_NOISE_ANC, 301))
-        views.setOnClickPendingIntent(R.id.btn_off, createBroadcastPendingIntent(context, ACTION_NOISE_OFF, 302))
-        views.setOnClickPendingIntent(R.id.btn_ambient, createBroadcastPendingIntent(context, ACTION_NOISE_AMBIENT, 303))
-
         // Clic al encabezado o fondo para abrir la app
         val appIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -167,6 +177,17 @@ class NuclearNoiseWidgetProvider : AppWidgetProvider() {
         )
         views.setOnClickPendingIntent(R.id.header_device_info, appPending)
         views.setOnClickPendingIntent(R.id.widget_root, appPending)
+
+        // Intents de botones de control (solo activos si está conectado y soporta ANC)
+        if (isConnected && hasAnc) {
+            views.setOnClickPendingIntent(R.id.btn_anc, createBroadcastPendingIntent(context, ACTION_NOISE_ANC, 301))
+            views.setOnClickPendingIntent(R.id.btn_off, createBroadcastPendingIntent(context, ACTION_NOISE_OFF, 302))
+            views.setOnClickPendingIntent(R.id.btn_ambient, createBroadcastPendingIntent(context, ACTION_NOISE_AMBIENT, 303))
+        } else {
+            views.setOnClickPendingIntent(R.id.btn_anc, appPending)
+            views.setOnClickPendingIntent(R.id.btn_off, appPending)
+            views.setOnClickPendingIntent(R.id.btn_ambient, appPending)
+        }
 
         return views
     }
@@ -181,24 +202,5 @@ class NuclearNoiseWidgetProvider : AppWidgetProvider() {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun performHapticFeedback(context: Context) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
-                vibratorManager?.defaultVibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
-            } else {
-                @Suppress("DEPRECATION")
-                val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
-                } else {
-                    @Suppress("DEPRECATION")
-                    vibrator?.vibrate(18)
-                }
-            }
-        } catch (_: Exception) {}
     }
 }

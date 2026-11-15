@@ -1,251 +1,177 @@
+<div align="center">
+
+<img src="windows/src/main/resources/drawable/ic_app_icon.png" alt="NuclearWearable Logo" width="88" style="border-radius: 20px;" />
+
+# NuclearWearable
+
+### Ecosistema Open-Source multiplataforma para audífonos Sony Bluetooth
+
+[![Version](https://img.shields.io/badge/Version-1.1.0-00E676?style=for-the-badge)](https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.1.0)
+[![Android](https://img.shields.io/badge/Android-12%2B%20(API%2031--35)-3DDC84?style=for-the-badge&logo=android&logoColor=white)](app/)
+[![Wear OS](https://img.shields.io/badge/Wear%20OS-3%2B%20Standalone-4285F4?style=for-the-badge&logo=wearos&logoColor=white)](wear/)
+[![Windows](https://img.shields.io/badge/Windows-x64%20Portable-0078D6?style=for-the-badge&logo=windows&logoColor=white)](windows/)
+[![Linux](https://img.shields.io/badge/Linux-x64%20Rootless-FCC624?style=for-the-badge&logo=linux&logoColor=black)](linux/)
+[![License](https://img.shields.io/badge/License-MIT-94A3B8?style=for-the-badge)](LICENSE)
+
+**Control nativo directo vía protocolo Sony MDR V1/V2 (RFCOMM / SPP).**  
+**100% offline · Cero telemetría · Sin permiso de Internet · Sin GPS · Sin nube.**
+
+[📥 Descargas v1.1.0](https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.1.0) · [📸 Capturas](#-capturas-del-ecosistema) · [🎧 Modelos Compatibles](#-modelos-sony-compatibles-52) · [🛠️ Compilar](#-compilación-desde-código-fuente) · [🇺🇸 English](#-english-overview)
+
+<br />
+
+<img src="docs/screenshots/hero_showcase.png" alt="NuclearWearable v1.1.0 Multiplatform Showcase" width="100%" />
+
+</div>
+
+---
+
+## 📸 Capturas del Ecosistema
+
+### Android — Audio Pro (EQ 10 Bandas), Controles de Confort & Multipunto
 <p align="center">
-  <img src="docs/app_logo.png" width="128" height="128" alt="NuclearWearable Logo" />
+  <img src="docs/screenshots/mobile_audio_eq_comfort.png" alt="Android Audio EQ 10 Bands, Codec HUD, Comfort & Multipoint" width="100%" />
 </p>
 
-<h1 align="center">NuclearWearable</h1>
-
+### Wear OS — Dashboard AMOLED Circular, Standalone BT & Tile Interactivo
 <p align="center">
-  <strong>El ecosistema minimalista, moderno y sin telemetría para audífonos inalámbricos Sony en Android, Wear OS y Windows 10/11.</strong><br>
-  <em>The minimalist, modern, telemetry-free ecosystem for Sony wireless headphones on Android, Wear OS, and Windows 10/11.</em>
+  <img src="docs/screenshots/wearos_watch_tiles.png" alt="Wear OS AMOLED Dashboard, 1-Bud Dimming & Interactive Tile" width="100%" />
 </p>
 
+### Desktop (Windows x64 & Linux x64) — App Principal & Bandeja del Sistema
 <p align="center">
-  <a href="#-español"><b>Español</b></a> &nbsp;|&nbsp; <a href="#-english"><b>English</b></a>
+  <img src="docs/screenshots/desktop_main_and_tray.png" alt="Desktop Main View and System Tray Flyout" width="100%" />
+</p>
+
+### Widgets One UI Personalizables (3 Estilos) & Catálogo Vectorial (52+ Modelos)
+<p align="center">
+  <img src="docs/screenshots/widgets_and_catalog.png" alt="One UI Home Widgets and 52+ Sony Models Vector Catalog" width="100%" />
 </p>
 
 ---
 
-<a name="-español"></a>
-## 🇪🇸 Español
+## ⚡ ¿Qué trae NuclearWearable v1.1.0?
 
-**NuclearWearable** es una suite multiplataforma de código abierto diseñada para controlar y monitorear audífonos inalámbricos Sony mediante comunicación directa con el protocolo nativo **Sony MDR (v1/v2)** sobre Bluetooth RFCOMM. Ofrece una experiencia visual limpia, rápida y completamente privada en teléfono, reloj inteligente y computadora.
+A diferencia de apps propietarias pesadas o dependientes de nube, **NuclearWearable** se comunica directamente por el socket **Bluetooth RFCOMM (Sony MDR V1 y V2 Dual-Table `0x0C` + `0x0E`)** con latencia mínima en Android, relojes Wear OS, Windows y Linux.
 
----
-
-### 🌐 Ecosistema Multiplataforma
-
-#### 📱 Android (Teléfono y Tablet)
-* **Control Acústico Instantáneo:** Conmutación sin latencia entre Cancelación Activa de Ruido (ANC), Sonido Ambiente (ajustable en 20 niveles con opción de *Enfoque en la voz*) y modo Desactivado.
-* **Widgets Interactivos One UI:** Widgets para la pantalla de inicio con anillos de batería en tiempo real, siluetas vectoriales del modelo conectado y botones táctiles de control de ruido.
-* **Interfaz Adaptativa (Vertical y Horizontal):** Diseño responsivo que en orientación horizontal divide la pantalla en dos paneles independientes para navegar por el catálogo y los controles con fluidez.
-* **Puente de Sincronización Wearable:** Servicio integrado en segundo plano que sincroniza el estado de los audífonos, baterías, tema de color y comandos con el reloj inteligente mediante *Wearable Data Layer*.
-
-#### ⌚ Wear OS (Smartwatch)
-* **Arquitectura Híbrida Dual:** Funciona tanto sincronizado con el teléfono (modo *Companion Proxy*) como conectado directamente por Bluetooth a los audífonos de forma autónoma (modo *Standalone RFCOMM*).
-* **Visualización AMOLED Circular:** Arcos de batería independientes para auricular izquierdo (`L`), derecho (`R`) y `Estuche`, acompañados de los iconos vectoriales del modelo y el color de acento sincronizado desde el teléfono.
-* **Control de Ambiente desde la Muñeca:** Ajuste directo de modos ANC, Ambiente, selector gradual de niveles (1 a 20) y activación de *Enfoque en la voz*.
-* **Tarjetas Deslizables (Tiles) y Complicaciones:** Incluye una tarjeta principal detallada (batería + controles), una tarjeta compacta de botones rápidos en fila estilo One UI (`ANC` / `Ambiente` / `Off`) y soporte de complicaciones para carátulas de reloj.
-
-#### 💻 Windows 10 / 11 (Escritorio x64)
-* **Integración en Bandeja del Sistema (System Tray):** Acceso rápido desde la barra de tareas con indicadores dinámicos de conexión y carga.
-* **Monitoreo y Control en Escritorio:** Lectura en tiempo real del porcentaje de batería de cada auricular y del estuche, junto con control completo de cancelación de ruido y sonido ambiente desde la PC.
-* **Ejecución Ligera:** Aplicación nativa de escritorio sin procesos pesados en segundo plano ni servicios de telemetría.
+| Categoría | Funcionalidades principales en v1.1.0 |
+| :--- | :--- |
+| **🔇 Control de Ruido Rápido** | Conmutación instantánea **ANC / Sonido Ambiente (nivel `1..20` + Enfoque en voz) / Desactivado**, filtro dedicado de ruido de viento para `WF-1000XM4` (`0x15`) y prioridad RFCOMM sobre sondeo en segundo plano. |
+| **🎛️ Audio Hardware & EQEBB** | Presets oficiales Sony y ecualizador manual de **5 bandas (`-10..+10`) + Clear Bass**, más **10 bandas (`0..12`, `31Hz..16kHz`)** en `WH-1000XM6`. Interruptor **DSEE / DSEE Extreme** y prioridad Bluetooth (**Calidad de sonido / Conexión estable / Baja latencia LE**). |
+| **📡 Telemetría de Códec en Vivo** | HUD en tiempo real con el códec negociado (**`LDAC`**, **`aptX`**, **`AAC`**, **`SBC`**, **`LC3`**), frecuencia (`kHz`), profundidad (`bits`), canales, detección de llamadas HFP SCO y enlace rápido a Ajustes BT (`AudioCodecMonitor` / `WindowsAudioMonitor` / `LinuxAudioCodecMonitor`). |
+| **🧘 Bienestar, Gestos & Multipunto** | **Speak-to-Chat** (sensibilidad, tiempo de retorno, enfoque vocal), **Pausa al retirar audífonos**, **Apagado automático**, **Apagado remoto seguro (V2)**, reasignación táctil **L/R** y bloqueo de panel táctil (`GS 0xD3`), **Guía de voz** (idioma/volumen) y **Multipunto (`PERI 0x0E`)** para 2 hosts simultáneos. |
+| **📍 Automatización Local (0 Telemetría)** | Motor reactivo por evento de **llamada VoIP/celular**, **inicio de multimedia** y **horario local nocturno/estándar** con enfriamiento de 30s tras cambio manual. Sin GPS, sin Wi-Fi SSID y sin conexión a red. |
+| **🔊 Find My Buds & Respaldo JSON** | Baliza estéreo PCM 44.1 kHz aislada **100% al canal Izquierdo o Derecho** con rampa segura de 4s y apagado automático a los 20s. Exportación/importación **JSON (`NuclearBackupBundle` v1)** interoperable entre Android, Windows y Linux + **Modo Lab Hex** con filtro y export `.txt`. |
+| **⌚ Wear OS 3+ AMOLED & Tiles** | App compañera + modo **Standalone Bluetooth RFCOMM directo** en reloj, arcos de batería simétricos (`80°`), atenuación individual cuando un auricular está en el estuche, **Tiles con 3 círculos vectoriales in-place** (cambia ANC/Ambiente/Off sin abrir la app), **Complicación de carátula** fiel al modelo y selector de 12 colores. |
+| **🪟 Widgets Samsung One UI** | 3 widgets de escritorio (`4x2 Dúo`, `Solo Batería`, `Solo Ruido`) con fondo squircle adaptativo (`0%..100%` opacidad), temas Claro/Oscuro OLED/Sistema y 3 estilos de anillos (**Minimalista**, **Medio Anillo `250°`**, **Anillo Completo `360°`**). |
 
 ---
 
-### ✨ Características Principales
+## 🎧 Modelos Sony Compatibles (52+)
 
-#### 1. 🎧 Soporte Universal Sony (52+ Modelos en 16 Familias Industriales)
-Vectores nativos independientes dibujados a mano respetando la geometría real de cada modelo, sus estuches de carga y diademas:
-* **True Wireless (TWS):** WF-1000XM6, WF-1000XM5, WF-1000XM4, WF-1000XM3, LinkBuds S, LinkBuds Open, LinkBuds Fit, WF-C700N, WF-C500, WF-C510, WF-SP800N, INZONE Buds (PlayStation).
-* **Diadema & Cuello (Over-Ear / Neckband):** WH-1000XM6, WH-1000XM5, WH-1000XM4, WH-1000XM3, WH-1000XM2, MDR-1000X, ULT WEAR (WH-ULT900N), WH-CH720N, WH-CH520, WH-XB910N, MDR-XB950, WH-H910N, WI-1000X, WI-C100.
+Motor de detección de **3 capas** (Firmware Hardware `0x04 0x01` → Caché persistente por MAC → Reglas de nombre/alias) + **filtro inteligente ANC** para ocultar controles de cancelación de ruido en modelos de solo batería:
 
-#### 2. 🔍 Motor de Detección Inteligente de 3 Capas
-Identifica con exactitud el modelo conectado incluso si tiene un nombre personalizado en los ajustes de Bluetooth (ej. *"Mis audífonos"*):
-* **Capa 1 (Firmware):** Consulta directa al chip Sony mediante el protocolo RFCOMM MDR.
-* **Capa 2 (Caché MAC):** Asociación persistente con la dirección física MAC del dispositivo.
-* **Capa 3 (Selector Manual):** Catálogo interactivo con buscador y filtros por categoría (Todos, TWS, Diadema) para fijar el modelo manualmente en cualquier momento.
-
-#### 3. 🛡️ Adaptación Dinámica según Hardware
-Para modelos que no disponen de Cancelación Activa de Ruido por hardware (ej. WF-C500, WH-CH520, WI-C100 o LinkBuds Open), la interfaz, los widgets y el reloj ocultan automáticamente los controles ANC, presentando una vista limpia enfocada en el estado de batería y conexión.
-
-#### 4. 🎨 Sistema de Diseño NuclearUI
-* Estética inspirada en One UI con esquinas *squircle* redondeadas (`26.dp`), tipografía natural y contraste negro puro (`#000000`) optimizado para pantallas OLED.
-* Paletas de color de acento personalizables que se reflejan en toda la aplicación, widgets y reloj inteligente.
-* Soporte bilingüe nativo al 100% (**Español / English**) con cambio instantáneo dentro de la aplicación.
-
-#### 5. 🔒 Privacidad Absoluta y Cero Telemetría
-* Sin permisos de acceso a internet en segundo plano.
-* Sin anuncios, cuentas obligatorias, librerías de analíticas ni rastreadores.
-* Permisos Bluetooth estrictamente locales (`BLUETOOTH_CONNECT`, `BLUETOOTH_SCAN` con flag `neverForLocation`).
+| Serie / Familia | Modelos cubiertos | Tipo |
+| :--- | :--- | :--- |
+| **1000X TWS Flagship** | `WF-1000XM6`, `WF-1000XM5`, `WF-1000XM4`, `WF-1000XM3` | True Wireless + Estuche |
+| **1000X Diadema Flagship** | `WH-1000XM6` (EQ 10 bandas), `WH-1000XM5`, `WH-1000XM4`, `WH-1000XM3`, `WH-1000XM2`, `MDR-1000X` | Over-Ear ANC |
+| **LinkBuds Series** | `LinkBuds Open (WF-L910)`, `LinkBuds (WF-L900)` (sin ANC), `LinkBuds S (WF-LS900N)`, `LinkBuds Fit (WF-LS910N)` | True Wireless + Estuche |
+| **ULT & Extra Bass** | `WH-ULT900N (ULT WEAR)`, `WH-XB910N`, `WH-XB900N`, `MDR-XB950N1`, `MDR-XB950B1`, `MDR-XB650BT` | Over-Ear ANC |
+| **Serie CH** | `WH-CH720N`, `WH-CH710N`, `WH-CH700N` / `WH-CH520`, `WH-CH510`, `WH-CH500` (solo batería) | Over-Ear / On-Ear |
+| **Serie C TWS** | `WF-C700N`, `WF-C710N` / `WF-C500`, `WF-C510` (solo batería) | True Wireless |
+| **Sport & Gaming** | `WF-SP800N`, `WF-SP700N`, `INZONE Buds (WF-G700N)` | True Wireless |
+| **h.ear & Collarín** | `WH-H910N (h.ear on 3)`, `WH-H900N (h.ear on 2)`, `WI-1000X`, `WI-1000XM2`, `WI-C100`, `WI-C200`, `WI-C310`, `WI-XB400` | Over-Ear / Neckband |
 
 ---
 
-### 📋 Catálogo de Compatibilidad
+## 📥 Descargas Oficiales — v1.1.0
 
-| Familia Industrial | Tipo | ANC | Modelos Cubiertos |
-| :--- | :---: | :---: | :--- |
-| **WF-1000XM6** | TWS | ✅ | WF-1000XM6 (Serie 1000X Flagship) |
-| **WF-1000XM5** | TWS | ✅ | WF-1000XM5 |
-| **WF-1000XM4** | TWS | ✅ | WF-1000XM4 |
-| **WF-1000XM3** | TWS | ✅ | WF-1000XM3 |
-| **WH-1000XM6** | Over-Ear | ✅ | WH-1000XM6 |
-| **WH-1000XM5** | Over-Ear | ✅ | WH-1000XM5 |
-| **WH-1000XM4** | Over-Ear | ✅ | WH-1000XM4 |
-| **WH-1000XM3** | Over-Ear | ✅ | WH-1000XM3, WH-1000XM2, MDR-1000X |
-| **LinkBuds Open** | TWS | ❌ | LinkBuds (WF-L900), LinkBuds Open (WF-L910) |
-| **LinkBuds S** | TWS | ✅ | LinkBuds S (WF-LS900N), LinkBuds Fit (WF-LS910N) |
-| **ULT WEAR** | Over-Ear | ✅ | WH-ULT900N (ULT WEAR Heavy Bass) |
-| **WH-CH720N** | Over-Ear | ✅ | WH-CH720N, WH-CH710N, WH-CH700N |
-| **WH-CH520** | Over-Ear | ❌ | WH-CH520, WH-CH510, WH-CH500 |
-| **WH-XB910N** | Over-Ear | ✅ | WH-XB910N, WH-XB900N (Extra Bass) |
-| **WF-C700N** | TWS | ✅ | WF-C700N, WF-C710N |
-| **WF-C500** | TWS | ❌ | WF-C500, WF-C510 |
-| **WF-SP800N** | TWS | ✅ | WF-SP800N, WF-SP700N |
-| **WI-1000X** | Collar | ✅ | WI-1000X, WI-1000XM2 |
-| **WI-C100** | Collar | ❌ | WI-C100, WI-C200, WI-C310, WI-XB400 |
-| **INZONE Buds** | TWS | ✅ | INZONE Buds (WF-G700N PlayStation) |
-| **MDR-XB950** | Over-Ear | ✅ | MDR-XB950N1, MDR-XB950B1, MDR-XB650BT |
-| **WH-H910N** | Over-Ear | ✅ | WH-H910N (h.ear on 3), WH-H900N (h.ear on 2) |
+Descarga los binarios listos para usar en la sección de [**Releases v1.1.0**](https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.1.0):
+
+| Plataforma | Archivo | Tamaño | Verificación SHA-256 |
+| :--- | :--- | :--- | :--- |
+| **Android 12–15** | `NuclearWearable_v1.1.0_release.apk` | `40.0 MiB` (`41,981,678` B) | `CB57FE69AFA926D5BAC01EF1D6C1882E7DDBED9667E53DAFA6FA1C21AD5E90DD` |
+| **Wear OS 3–5** | `NuclearWearable_WearOS_v1.1.0_release.apk` | `26.8 MiB` (`28,146,350` B) | `030BAA2E6ED4B3E67EAD1E76AF70C1AF4F1C5B2204DDF79578B62D0253713330` |
+| **Windows x64 Portable** | `NuclearWearable_Windows_v1.1.0_release.exe` | `120.2 MiB` (`125,987,328` B) | `839F2747C93FA2DC118CBFE0EA58E932672FC4DE2083603F83AACB454F9245B3` |
+| **Linux x64 Desktop** | `NuclearWearable_Linux_x64_v1.1.0.jar` | `76.8 MiB` (`80,576,089` B) | `92F3959DC0E7D1F9FC828166BF2DF1D1E5E1FEF67FF8102532E181082B033617` |
+
+### Notas rápidas de instalación
+- **Android / Wear OS:** Ambas APKs comparten firma unificada (`nuclear_ecosystem.keystore`, SHA-256 `bd944ae0...784`) para que la capa Wearable Data Layer entre móvil y reloj funcione automáticamente. Si Google Play Protect muestra *"Desarrollador desconocido"* por sideloading manual, pulsa **Más detalles → Instalar de todas formas**.
+- **Windows x64:** Ejecutable portable autoextraíble (`.exe`): incluye JVM y librerías nativas Compose/Skia, **no requiere instalar Java**. Si Windows SmartScreen avisa en la primera ejecución por ser binario open-source sin certificado comercial, pulsa **Más información → Ejecutar de todas formas**.
+- **Linux x64:** Funciona **sin root (`sudo`)** sobre **BlueZ + PipeWire / PulseAudio** (`JDK 17+`):
+  ```bash
+  java -jar NuclearWearable_Linux_x64_v1.1.0.jar
+  ```
 
 ---
 
-### 📲 Descarga e Instalación
+## 🏗️ Arquitectura del Monorepo
 
-Dirígete a la sección de **[Releases](https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.0.0)** y descarga el paquete correspondiente a tus dispositivos:
-
-1. **Android (Teléfono / Tablet):**
-   * Descarga e instala **`NuclearWearable_Phone_v1.0.0.apk`**.
-   * Concede los permisos de Bluetooth al abrir la aplicación.
-2. **Wear OS (Reloj Inteligente):**
-   * Descarga **`NuclearWearable_Watch_v1.0.0.apk`**.
-   * Instálalo en tu reloj mediante *Wear Installer*, *Bugjaeger* o vía ADB (`adb install NuclearWearable_Watch_v1.0.0.apk`).
-   * Asegúrate de tener instalada la aplicación en tu teléfono para habilitar la sincronización automática de estado y color.
-3. **Windows 10 / 11 (PC x64):**
-   * Descarga y ejecuta **`NuclearWearable_v1.0.0_Windows_x64.exe`**.
-
-> [!NOTE]
-> **Aviso de instalación independiente (Google Play Protect / Windows SmartScreen):**  
-> Al distribuirse de forma directa y abierta fuera de tiendas comerciales, el sistema puede mostrar un aviso preventivo de *"Desarrollador no reconocido"*. En Android basta con pulsar **"Más detalles" ➔ "Instalar de todas formas"**; en Windows, **"Más información" ➔ "Ejecutar de todas formas"**. El código fuente es 100% abierto, auditable y libre de conexiones a internet.
-
----
-
-### 🛠️ Compilación desde el Código Fuente
-
-```bash
-# Clonar el repositorio
-git clone https://github.com/SebasNuclear/NuclearWearable.git
-cd NuclearWearable
-
-# Compilar APKs firmados de Android y Wear OS
-./gradlew :app:assembleRelease :wear:assembleRelease
+```text
+NuclearWearable/
+├── core/                  # Protocolo compartido Android + Wear OS (MDR V1/V2, ARQ, SonyModels, WearProtocol)
+├── app/                   # App móvil Android (Jetpack Compose, Material 3, One UI Widgets, QS Tile, EQ/Lab/Backup)
+├── wear/                  # App reloj Wear OS (Compose Wear AMOLED, Standalone RFCOMM, Vector Tiles, Complication)
+├── windows/               # Cliente nativo Windows x64 (Compose Desktop, Winsock JNA, WASAPI HUD, Tray, EXE launcher)
+├── linux/                 # Cliente nativo Linux x64 (Compose Desktop, BlueZ D-Bus + JNA libc AF_BLUETOOTH, PipeWire)
+└── docs/                  # Guías de diseño NuclearUI, widgets y capturas oficiales (docs/screenshots/)
 ```
 
-Los binarios generados se ubican en:
-* **Android:** `app/build/outputs/apk/release/app-release.apk`
-* **Wear OS:** `wear/build/outputs/apk/release/wear-release.apk`
-* **Librería Core:** `core/build/outputs/aar/core-release.aar`
+---
+
+## 🛡️ Privacidad y Permisos
+
+- **Cero permiso `INTERNET`** en `:app`, `:core` y `:wear`.
+- **Cero geolocalización / Wi-Fi SSID:** no se solicitan permisos de ubicación (`neverForLocation` en `BLUETOOTH_SCAN`).
+- Todas las preferencias, historial de baterías, automatizaciones y respaldos `.json` se guardan localmente en tu dispositivo (`SharedPreferences`, `%LOCALAPPDATA%\NuclearWearable` en Windows o `~/.config/NuclearWearable` en Linux).
 
 ---
 
-<a name="-english"></a>
-## 🇬🇧 English
+## 🛠️ Compilación desde Código Fuente
 
-**NuclearWearable** is an open-source multiplatform suite designed to control and monitor Sony wireless headphones through direct communication with the native **Sony MDR (v1/v2)** protocol over Bluetooth RFCOMM. It delivers a clean, fast, and completely private experience across your phone, smartwatch, and desktop PC.
+<details>
+<summary>Instrucciones de compilación y tests por plataforma</summary>
 
----
-
-### 🌐 Multiplatform Ecosystem
-
-#### 📱 Android (Phone & Tablet)
-* **Instant Acoustic Control:** Zero-latency switching between Active Noise Cancellation (ANC), Ambient Sound (adjustable across 20 levels with *Voice Passthrough*), and Off mode.
-* **Interactive One UI Widgets:** Home screen widgets featuring real-time battery rings, vector silhouettes of your connected model, and touch noise control toggles.
-* **Adaptive Layout (Portrait & Landscape):** Responsive design that automatically splits into a two-column view in landscape mode for effortless browsing and control.
-* **Wearable Sync Bridge:** Background service that synchronizes headphone telemetry, battery levels, accent color themes, and remote commands with your Wear OS watch via the *Wearable Data Layer*.
-
-#### ⌚ Wear OS (Smartwatch)
-* **Dual Hybrid Architecture:** Operates seamlessly either paired with your phone (*Companion Proxy* mode) or connected directly via Bluetooth to your headphones (*Standalone RFCOMM* mode).
-* **Circular AMOLED Display:** Independent battery arcs for Left (`L`), Right (`R`), and charging case, paired with crisp model-specific vector icons and automatic accent color synchronization.
-* **Wrist Ambient Control:** Full switching between ANC, Ambient mode, a 1–20 level stepper, and *Voice Focus* toggle directly from your watch.
-* **Tiles & Watch Face Complications:** Includes a full dashboard Tile (battery capsules + ANC toggles), a compact single-row Quick Controls Tile (`ANC` / `Ambient` / `Off`), and Watch Face Complication support.
-
-#### 💻 Windows 10 / 11 (Desktop x64)
-* **System Tray Integration:** Quick access from the Windows taskbar with dynamic connection and battery indicators.
-* **Desktop Monitoring & Control:** Real-time battery readout for individual earbuds and the charging case, along with direct ANC and Ambient Sound control from your PC.
-* **Lightweight Native Execution:** Built for minimal resource footprint with zero background bloatware or telemetry services.
-
----
-
-### ✨ Key Features
-
-#### 1. 🎧 Universal Sony Support (52+ Models in 16 Design Families)
-Hand-crafted native vectors respecting the authentic geometry of each model, its charging case, and headband:
-* **True Wireless (TWS):** WF-1000XM6, WF-1000XM5, WF-1000XM4, WF-1000XM3, LinkBuds S, LinkBuds Open, LinkBuds Fit, WF-C700N, WF-C500, WF-C510, WF-SP800N, INZONE Buds (PlayStation).
-* **Headband & Neckband (Over-Ear / Neckband):** WH-1000XM6, WH-1000XM5, WH-1000XM4, WH-1000XM3, WH-1000XM2, MDR-1000X, ULT WEAR (WH-ULT900N), WH-CH720N, WH-CH520, WH-XB910N, MDR-XB950, WH-H910N, WI-1000X, WI-C100.
-
-#### 2. 🔍 3-Layer Intelligent Detection Engine
-Accurately identifies your exact hardware model even if renamed in Bluetooth settings (e.g. *"My Headphones"*):
-* **Layer 1 (Firmware):** Direct query to the Sony chip via RFCOMM MDR protocol.
-* **Layer 2 (MAC Cache):** Persistent association with the device's physical MAC address.
-* **Layer 3 (Manual Selector):** Interactive catalog with search and category filters (All, TWS, Over-Ear) to lock your model manually at any time.
-
-#### 3. 🛡️ Dynamic Hardware Adaptation
-For headphones without hardware Active Noise Cancellation (e.g. WF-C500, WH-CH520, WI-C100, LinkBuds Open), the app, widgets, and smartwatch interface automatically hide ANC controls, presenting a streamlined layout focused on battery and connection status.
-
-#### 4. 🎨 NuclearUI Design System
-* One UI-inspired aesthetic with rounded squircle corners (`26.dp`), clean typography, and pitch-black contrast (`#000000`) tailored for OLED displays.
-* Customizable accent color palettes synchronized across the mobile app, widgets, and smartwatch.
-* 100% native bilingual support (**Spanish / English**) with instant in-app switching.
-
-#### 5. 🔒 Absolute Privacy & Zero Telemetry
-* No background internet permissions.
-* No ads, mandatory accounts, analytics libraries, or trackers.
-* Strictly local Bluetooth communication (`BLUETOOTH_CONNECT`, `BLUETOOTH_SCAN` with `neverForLocation`).
-
----
-
-### 📲 Download & Installation
-
-Visit the **[Releases](https://github.com/SebasNuclear/NuclearWearable/releases/tag/v1.0.0)** page and download the package for your platform:
-
-1. **Android (Phone / Tablet):**
-   * Download and install **`NuclearWearable_Phone_v1.0.0.apk`**.
-   * Grant standard Bluetooth permissions when prompted.
-2. **Wear OS (Smartwatch):**
-   * Download **`NuclearWearable_Watch_v1.0.0.apk`**.
-   * Sideload it to your watch using *Wear Installer*, *Bugjaeger*, or ADB (`adb install NuclearWearable_Watch_v1.0.0.apk`).
-   * Keep the phone app installed to enable automatic state and theme synchronization.
-3. **Windows 10 / 11 (Desktop x64):**
-   * Download and run **`NuclearWearable_v1.0.0_Windows_x64.exe`**.
-
-> [!NOTE]
-> **Independent Distribution Notice (Google Play Protect / Windows SmartScreen):**  
-> When installing open-source binaries outside commercial app stores, the OS may display an *"Unrecognized developer"* prompt. On Android, tap **"More details" ➔ "Install anyway"**; on Windows, click **"More info" ➔ "Run anyway"**. The entire codebase is open-source, auditable, and operates 100% offline.
-
----
-
-### 🛠️ Building from Source
-
+### Android & Wear OS
 ```bash
-# Clone the repository
-git clone https://github.com/SebasNuclear/NuclearWearable.git
-cd NuclearWearable
-
-# Build signed Release APKs for Android and Wear OS
+# Compilar APKs Release desde la raíz del repo
 ./gradlew :app:assembleRelease :wear:assembleRelease
+
+# Ejecutar tests unitarios del módulo compartido :core
+./gradlew :core:testReleaseUnitTest
 ```
 
-Compiled binaries are located at:
-* **Android:** `app/build/outputs/apk/release/app-release.apk`
-* **Wear OS:** `wear/build/outputs/apk/release/wear-release.apk`
-* **Core Library:** `core/build/outputs/aar/core-release.aar`
+### Windows x64 (`windows/`)
+```powershell
+cd windows
+.\gradlew.bat cleanTest test packageUberJarForCurrentOS --no-daemon
+```
+
+### Linux x64 (`linux/`)
+```bash
+cd linux
+./gradlew cleanTest test packageUberJarForCurrentOS --no-daemon
+# Opcional: paquetes .deb / .AppImage
+./packaging/linux/build-linux.sh
+./packaging/linux/appimage-build.sh
+```
+
+</details>
 
 ---
 
-## 🏷️ Specifications
+## 🇺🇸 English Overview
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Version-1.0.0-FFB300?style=for-the-badge&logo=github&logoColor=black" alt="Version 1.0.0" />
-  <img src="https://img.shields.io/badge/Android-12+_(API_31--35)-34C759?style=for-the-badge&logo=android&logoColor=white" alt="Android Support" />
-  <img src="https://img.shields.io/badge/Wear_OS-3.0+_(API_30--35)-4285F4?style=for-the-badge&logo=wearos&logoColor=white" alt="Wear OS Support" />
-  <img src="https://img.shields.io/badge/Windows-10_%2F_11_(x64)-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows Support" />
-  <img src="https://img.shields.io/badge/Telemetry-0%25_(100%25_Offline)-007AFF?style=for-the-badge&logo=shield&logoColor=white" alt="Private & Offline" />
-</p>
+**NuclearWearable v1.1.0** is an open-source, offline, zero-telemetry controller ecosystem for **52+ Sony wireless headphones & earbuds** (`WF/WH-1000XM3 → XM6`, `LinkBuds`, `ULT WEAR`, `WF-C`, `INZONE`, `CH/WI` series) across **Android 12+**, **Wear OS 3+**, **Windows x64**, and **Linux x64**.
+
+- **Direct Sony MDR V1/V2 Protocol:** Speaks binary RFCOMM/SPP natively (`Table 1 0x0C` & `Table 2 0x0E`) with user preemption, hardware 5/10-band EQ (`EQEBB`) + Clear Bass, DSEE, Bluetooth connection priority (incl. LE Audio), Speak-to-Chat, wear sensor pause, WF-1000XM4 wind-noise reduction, custom touch mapping, voice guidance, and Multipoint host management.
+- **Zero-Telemetry Phase 3 Engines:** Live codec & HFP SCO HUD (`LDAC / aptX / AAC / SBC / LC3`), completely offline automation (calls, media playback, local schedule — no GPS or Wi-Fi SSIDs), isolated stereo L/R Find My Buds beacon, cross-platform JSON profile backups (`NuclearBackupBundle` v1), and a live RFCOMM Hex Monitor.
+- **Native System Integration:** Android Quick Settings Tile + 3 One UI Home Widget styles; Wear OS circular AMOLED UI + standalone RFCOMM mode + interactive vector Tiles + Complications; Windows Winsock RFCOMM + WASAPI HUD + zero-install portable `.exe`; and rootless Linux BlueZ/L2CAP SDP + PipeWire/MPRIS + XDG config.
 
 ---
 
-## 📄 Licencia / License
+<div align="center">
 
-MIT License © 2026 SebasNuclear. Consulte el archivo `LICENSE` para más información.
+Publicado bajo licencia [**MIT**](LICENSE) · Creado por **SebasNuclear**
 
-*Sony, Walkman, LinkBuds, INZONE and model names are registered trademarks of Sony Group Corporation. This project is an independent open-source implementation and is not affiliated with Sony.*
+</div>

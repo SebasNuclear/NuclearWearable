@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=NuclearWearable
+GenericName=Sony SoundConnect Controller
+Comment=Native Linux Desktop controller for 52+ Sony headphones (ANC, Ambient, EQ, LDAC HUD, Find My Buds)
+Comment[es]=Controlador nativo para Linux de audífonos Sony (ANC, Ambiente, EQ, LDAC, Buscar audífonos)
+Exec=/usr/bin/nuclearwearable
+Icon=nuclearwearable
+Terminal=false
+Categories=AudioVideo;Audio;Settings;
+Keywords=Sony;Headphones;WF-1000XM6;WH-1000XM6;ANC;LDAC;Bluetooth;
+StartupWMClass=com-nuclear-soundconnect-MainKt
+StartupNotify=true
+SingleMainWindow=true

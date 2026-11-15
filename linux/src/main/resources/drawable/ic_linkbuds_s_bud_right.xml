@@ -1,0 +1,28 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Almohadilla intraural derecha -->
+    <path
+        android:fillColor="#24FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.3"
+        android:strokeLineJoin="round"
+        android:pathData="M 20,21 C 15,20 11,23 10,27 C 11,31 15,33 20,32 Z" />
+    <!-- Cuerpo ultra compacto guijarro -->
+    <path
+        android:fillColor="#1FFFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:pathData="M 27,12 C 22,12 18,16 18,22 C 18,28 21,35 27,35 C 33,35 36,29 36,23 C 36,17 32,12 27,12 Z" />
+    <!-- Micrófono enrasado -->
+    <path
+        android:fillColor="#15FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.1"
+        android:pathData="M 24.5,19.0 A 3.5,3.5 0 1,0 31.5,19.0 A 3.5,3.5 0 1,0 24.5,19.0 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 27.0,19.0 A 1.0,1.0 0 1,0 29.0,19.0 A 1.0,1.0 0 1,0 27.0,19.0 Z" />
+</vector>

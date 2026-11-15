@@ -5,6 +5,7 @@
 *.aab
 *.exe
 *.jar
+!**/gradle-wrapper.jar
 *.zip
 *.7z
 
@@ -44,7 +45,11 @@ Thumbs.db
 graphify-out/
 .system_generated/
 AGENT_CONTEXT.md
+**/.kotlin/
 
 # Local release delivery folders (kept on disk, not pushed to git tree)
 releases/
 release/
+!windows/releases/
+windows/releases/*
+!windows/releases/app.ico

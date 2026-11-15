@@ -16,6 +16,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
     implementation("net.java.dev.jna:jna:5.14.0")
     implementation("net.java.dev.jna:jna-platform:5.14.0")
+    implementation("org.json:json:20240303")
+    testImplementation(kotlin("test"))
+    testImplementation("junit:junit:4.13.2")
 }
 
 compose.desktop {
@@ -27,7 +30,7 @@ compose.desktop {
                 org.jetbrains.compose.desktop.application.dsl.TargetFormat.Exe
             )
             packageName = "NuclearWearable"
-            packageVersion = "1.0.0"
+            packageVersion = "1.1.0"
             description = "NuclearWearable for Windows - Sony SoundConnect Desktop Controller"
             vendor = "Nuclear Ecosystem"
             windows {

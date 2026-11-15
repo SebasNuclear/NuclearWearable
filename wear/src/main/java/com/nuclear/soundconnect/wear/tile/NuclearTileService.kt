@@ -1,7 +1,5 @@
 package com.nuclear.soundconnect.wear.tile
 
-import android.content.Context
-import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.protolayout.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.protolayout.DimensionBuilders.dp
@@ -24,27 +22,38 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.nuclear.soundconnect.bluetooth.DeviceType
 import com.nuclear.soundconnect.bluetooth.HeadsetState
 import com.nuclear.soundconnect.bluetooth.NoiseControlMode
+import com.nuclear.soundconnect.wear.R
 import com.nuclear.soundconnect.wear.data.WearHeadsetRepository
-import com.nuclear.soundconnect.wear.presentation.WearMainActivity
+import com.nuclear.soundconnect.wear.presentation.theme.WearUiPrefs
 import com.nuclear.soundconnect.wear.presentation.util.SonyModelDrawables
+import com.nuclear.soundconnect.wear.tile.NuclearTileUiHelper.addAndroidDrawable
+import com.nuclear.soundconnect.wear.tile.NuclearTileUiHelper.addNoiseControlResources
 
 /**
- * Wear OS Tile: Tarjeta deslizable interactiva para el carrusel de la carátula.
- * Muestra iconos vectoriales del modelo, estado de batería y controles táctiles One UI.
+ * Wear OS Tile principal: muestra baterías por componente con atenuación gris al desconectar
+ * y 3 botones circulares vectoriales para alternar ANC / Ambiente / Off sin abrir la app.
  */
 class NuclearTileService : TileService() {
 
     override fun onTileRequest(requestParams: RequestBuilders.TileRequest): ListenableFuture<TileBuilders.Tile> {
         val repository = WearHeadsetRepository.getInstance(applicationContext)
+        NuclearTileUiHelper.handleModeClickIfPresent(
+            context = applicationContext,
+            lastClickableId = requestParams.currentState.lastClickableId,
+            repository = repository,
+            siblingTileClass = NuclearQuickControlsTileService::class.java
+        )
+
         val state = repository.state.value
         val deviceParams = requestParams.deviceConfiguration
+        val accentColor = WearUiPrefs.resolveAccentColor(applicationContext, state.accentColor)
 
         val singleTileTimeline = TimelineBuilders.Timeline.Builder()
             .addTimelineEntry(
                 TimelineBuilders.TimelineEntry.Builder()
                     .setLayout(
                         LayoutElementBuilders.Layout.Builder()
-                            .setRoot(buildLayout(state, deviceParams))
+                            .setRoot(buildLayout(state, accentColor, deviceParams))
                             .build()
                     )
                     .build()
@@ -52,7 +61,7 @@ class NuclearTileService : TileService() {
             .build()
 
         val tile = TileBuilders.Tile.Builder()
-            .setResourcesVersion("${state.modelFamily.name}_${state.lastSyncTime}")
+            .setResourcesVersion("v2_${state.modelFamily.name}_${state.lastSyncTime}")
             .setTileTimeline(singleTileTimeline)
             .setFreshnessIntervalMillis(60_000L)
             .build()
@@ -67,46 +76,12 @@ class NuclearTileService : TileService() {
 
         val resources = ResourceBuilders.Resources.Builder()
             .setVersion(requestParams.version)
-            .addIdToImageMapping(
-                ID_ICON_LEFT_BUD,
-                ResourceBuilders.ImageResource.Builder()
-                    .setAndroidResourceByResId(
-                        ResourceBuilders.AndroidImageResourceByResId.Builder()
-                            .setResourceId(drawables.leftBud)
-                            .build()
-                    )
-                    .build()
-            )
-            .addIdToImageMapping(
-                ID_ICON_RIGHT_BUD,
-                ResourceBuilders.ImageResource.Builder()
-                    .setAndroidResourceByResId(
-                        ResourceBuilders.AndroidImageResourceByResId.Builder()
-                            .setResourceId(drawables.rightBud)
-                            .build()
-                    )
-                    .build()
-            )
-            .addIdToImageMapping(
-                ID_ICON_CASE,
-                ResourceBuilders.ImageResource.Builder()
-                    .setAndroidResourceByResId(
-                        ResourceBuilders.AndroidImageResourceByResId.Builder()
-                            .setResourceId(drawables.case)
-                            .build()
-                    )
-                    .build()
-            )
-            .addIdToImageMapping(
-                ID_ICON_HEADPHONE,
-                ResourceBuilders.ImageResource.Builder()
-                    .setAndroidResourceByResId(
-                        ResourceBuilders.AndroidImageResourceByResId.Builder()
-                            .setResourceId(drawables.headphone)
-                            .build()
-                    )
-                    .build()
-            )
+            .addAndroidDrawable(ID_ICON_LEFT_BUD, drawables.leftBud)
+            .addAndroidDrawable(ID_ICON_RIGHT_BUD, drawables.rightBud)
+            .addAndroidDrawable(ID_ICON_CASE, drawables.case)
+            .addAndroidDrawable(ID_ICON_HEADPHONE, drawables.headphone)
+            .addAndroidDrawable(ID_ICON_CHARGING_BOLT, R.drawable.ic_charging_bolt)
+            .addNoiseControlResources()
             .build()
 
         return Futures.immediateFuture(resources)
@@ -114,149 +89,148 @@ class NuclearTileService : TileService() {
 
     private fun buildLayout(
         state: HeadsetState,
+        accentColor: Int,
         deviceParams: DeviceParameters
     ): LayoutElementBuilders.LayoutElement {
-        val mainClickable = createActivityClickable(applicationContext, null)
-        val mainModifiers = ModifiersBuilders.Modifiers.Builder()
-            .setClickable(mainClickable)
+        val openAppClickable = NuclearTileUiHelper.createOpenAppClickable(applicationContext)
+        val headerModifiers = ModifiersBuilders.Modifiers.Builder()
+            .setClickable(openAppClickable)
             .build()
 
         val layoutBuilder = PrimaryLayout.Builder(deviceParams)
-        val accentColor = state.accentColor
 
-        // 1. Título y Estado
-        val titleText = if (state.isConnected) {
-            state.deviceName
+        // 1. Cabecera sin palabra "Desconectado" (gris atenuado cuando no está conectado)
+        val titleColor = if (state.isConnected) {
+            NuclearTileUiHelper.COLOR_TEXT_PRIMARY
         } else {
-            "${state.deviceName} (Desconectado)"
+            NuclearTileUiHelper.COLOR_TEXT_MUTED
         }
 
-        // 2. Fila de Baterías con Iconos Vectoriales
+        // 2. Fila de baterías con iconos vectoriales atenuados en gris al desconectar
         val batteryRow = LayoutElementBuilders.Row.Builder()
             .setWidth(wrap())
             .setHeight(wrap())
             .setVerticalAlignment(LayoutElementBuilders.VERTICAL_ALIGN_CENTER)
 
         if (state.deviceType == DeviceType.OVER_EAR) {
-            val singlePct = state.singleBattery.displayPercent
+            val isSingleAvailable = state.isConnected && state.singleBattery.isAvailable
             batteryRow.addContent(
                 buildBatteryCapsule(
                     imageResourceId = ID_ICON_HEADPHONE,
-                    imageSizeDp = 28f,
+                    imageSizeDp = 24f,
                     label = "Diadema",
-                    percent = singlePct,
+                    percent = state.singleBattery.displayPercent,
+                    isAvailable = isSingleAvailable,
                     isCharging = state.singleBattery.isCharging,
                     valueColor = accentColor
                 )
             )
         } else {
-            val leftPct = state.leftBattery.displayPercent
-            val rightPct = state.rightBattery.displayPercent
-            val casePct = state.caseBattery.displayPercent
+            val isLeftAvailable = state.isConnected && state.leftBattery.isAvailable
+            val isRightAvailable = state.isConnected && state.rightBattery.isAvailable
+            val isCaseAvailable = state.isConnected && state.caseBattery.isAvailable
 
             batteryRow.addContent(
                 buildBatteryCapsule(
                     imageResourceId = ID_ICON_LEFT_BUD,
-                    imageSizeDp = 22f,
+                    imageSizeDp = 20f,
                     label = "L",
-                    percent = leftPct,
+                    percent = state.leftBattery.displayPercent,
+                    isAvailable = isLeftAvailable,
                     isCharging = state.leftBattery.isCharging,
                     valueColor = accentColor
                 )
             )
-            batteryRow.addContent(LayoutElementBuilders.Spacer.Builder().setWidth(dp(6f)).build())
+            batteryRow.addContent(LayoutElementBuilders.Spacer.Builder().setWidth(dp(5f)).build())
             batteryRow.addContent(
                 buildBatteryCapsule(
                     imageResourceId = ID_ICON_RIGHT_BUD,
-                    imageSizeDp = 22f,
+                    imageSizeDp = 20f,
                     label = "R",
-                    percent = rightPct,
+                    percent = state.rightBattery.displayPercent,
+                    isAvailable = isRightAvailable,
                     isCharging = state.rightBattery.isCharging,
                     valueColor = accentColor
                 )
             )
-            batteryRow.addContent(LayoutElementBuilders.Spacer.Builder().setWidth(dp(6f)).build())
+            batteryRow.addContent(LayoutElementBuilders.Spacer.Builder().setWidth(dp(5f)).build())
             batteryRow.addContent(
                 buildBatteryCapsule(
                     imageResourceId = ID_ICON_CASE,
-                    imageSizeDp = 22f,
+                    imageSizeDp = 20f,
                     label = "Estuche",
-                    percent = casePct,
+                    percent = state.caseBattery.displayPercent,
+                    isAvailable = isCaseAvailable,
                     isCharging = state.caseBattery.isCharging,
-                    valueColor = COLOR_SONY_GOLD
+                    valueColor = NuclearTileUiHelper.COLOR_CASE_SILVER
                 )
             )
         }
 
-        // 3. Contenido Central (Título + Espaciador + Fila de Baterías)
+        // 3. Contenido central (título + baterías + acceso a ajuste ambiente si aplica)
         val centerColumn = LayoutElementBuilders.Column.Builder()
             .setWidth(expand())
             .setHeight(wrap())
             .setHorizontalAlignment(LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER)
-            .setModifiers(mainModifiers)
             .addContent(
-                Text.Builder(applicationContext, titleText)
-                    .setTypography(Typography.TYPOGRAPHY_CAPTION1)
-                    .setColor(argb(if (state.isConnected) accentColor else COLOR_TEXT_MUTED))
-                    .setMaxLines(1)
+                LayoutElementBuilders.Box.Builder()
+                    .setModifiers(headerModifiers)
+                    .addContent(
+                        Text.Builder(applicationContext, state.deviceName)
+                            .setTypography(Typography.TYPOGRAPHY_CAPTION1)
+                            .setColor(argb(titleColor))
+                            .setMaxLines(1)
+                            .build()
+                    )
                     .build()
             )
-            .addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(8f)).build())
-            .addContent(batteryRow.build())
-            .build()
-
-        layoutBuilder.setContent(centerColumn)
-
-        // 4. Fila Inferior: Chips táctiles de Control de Ruido
-        if (state.modelFamily.hasAnc) {
-            val ancActive = state.noiseMode == NoiseControlMode.ANC
-            val ambActive = state.noiseMode == NoiseControlMode.AMBIENT
-
-            val ancChip = CompactChip.Builder(
-                applicationContext,
-                "ANC",
-                createActivityClickable(applicationContext, WearMainActivity.ACTION_SET_ANC),
-                deviceParams
+            .addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(5f)).build())
+            .addContent(
+                LayoutElementBuilders.Box.Builder()
+                    .setModifiers(headerModifiers)
+                    .addContent(batteryRow.build())
+                    .build()
             )
-                .setChipColors(
-                    ChipColors(
-                        argb(if (ancActive) accentColor else COLOR_SURFACE_CARD),
-                        argb(if (ancActive) COLOR_BLACK else COLOR_TEXT_PRIMARY)
+
+        if (state.effectiveHasAnc && state.noiseMode == NoiseControlMode.AMBIENT) {
+            centerColumn
+                .addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(5f)).build())
+                .addContent(
+                    NuclearTileUiHelper.buildAmbientTunePill(
+                        context = applicationContext,
+                        ambientLevel = state.ambientLevel,
+                        isConnected = state.isConnected,
+                        accentColor = accentColor
                     )
                 )
-                .build()
+        }
 
-            val ambChip = CompactChip.Builder(
-                applicationContext,
-                "Ambiente",
-                createActivityClickable(applicationContext, WearMainActivity.ACTION_SET_AMBIENT),
-                deviceParams
-            )
-                .setChipColors(
-                    ChipColors(
-                        argb(if (ambActive) accentColor else COLOR_SURFACE_CARD),
-                        argb(if (ambActive) COLOR_BLACK else COLOR_TEXT_PRIMARY)
-                    )
+        layoutBuilder.setContent(centerColumn.build())
+
+        // 4. Ranura inferior: 3 círculos con símbolos vectoriales (sin texto, cambio in-place)
+        if (state.effectiveHasAnc) {
+            layoutBuilder.setPrimaryChipContent(
+                NuclearTileUiHelper.buildNoiseCirclesRow(
+                    state = state,
+                    accentColor = accentColor,
+                    buttonSizeDp = 38f,
+                    iconSizeDp = 19f,
+                    spacingDp = 8f
                 )
-                .build()
-
-            val actionsRow = LayoutElementBuilders.Row.Builder()
-                .setWidth(wrap())
-                .setHeight(wrap())
-                .addContent(ancChip)
-                .addContent(LayoutElementBuilders.Spacer.Builder().setWidth(dp(6f)).build())
-                .addContent(ambChip)
-                .build()
-
-            layoutBuilder.setPrimaryChipContent(actionsRow)
+            )
         } else {
             val openChip = CompactChip.Builder(
                 applicationContext,
                 "Abrir",
-                mainClickable,
+                openAppClickable,
                 deviceParams
             )
-                .setChipColors(ChipColors(argb(COLOR_SURFACE_CARD), argb(accentColor)))
+                .setChipColors(
+                    ChipColors(
+                        argb(NuclearTileUiHelper.COLOR_SURFACE_CARD),
+                        argb(if (state.isConnected) accentColor else NuclearTileUiHelper.COLOR_TEXT_MUTED)
+                    )
+                )
                 .build()
 
             layoutBuilder.setPrimaryChipContent(openChip)
@@ -270,26 +244,60 @@ class NuclearTileService : TileService() {
         imageSizeDp: Float,
         label: String,
         percent: String,
+        isAvailable: Boolean,
         isCharging: Boolean,
         valueColor: Int
     ): LayoutElementBuilders.LayoutElement {
-        val boltSuffix = if (isCharging) " ⚡" else ""
-        val displayText = "$percent$boltSuffix"
+        val iconTint = if (isAvailable) {
+            NuclearTileUiHelper.COLOR_TEXT_PRIMARY
+        } else {
+            NuclearTileUiHelper.COLOR_DISCONNECTED_TINT
+        }
+        val pctColor = if (isAvailable) valueColor else NuclearTileUiHelper.COLOR_TEXT_MUTED
+        val pctDisplay = if (isAvailable) percent else "--%"
 
         val imageElement = LayoutElementBuilders.Image.Builder()
             .setResourceId(imageResourceId)
             .setWidth(dp(imageSizeDp))
             .setHeight(dp(imageSizeDp))
+            .setColorFilter(
+                LayoutElementBuilders.ColorFilter.Builder()
+                    .setTint(argb(iconTint))
+                    .build()
+            )
             .build()
 
-        val pctText = Text.Builder(applicationContext, displayText)
-            .setTypography(Typography.TYPOGRAPHY_TITLE3)
-            .setColor(argb(valueColor))
-            .build()
+        val pctRow = LayoutElementBuilders.Row.Builder()
+            .setWidth(wrap())
+            .setHeight(wrap())
+            .setVerticalAlignment(LayoutElementBuilders.VERTICAL_ALIGN_CENTER)
+            .addContent(
+                Text.Builder(applicationContext, pctDisplay)
+                    .setTypography(Typography.TYPOGRAPHY_CAPTION1)
+                    .setColor(argb(pctColor))
+                    .build()
+            )
+
+        if (isAvailable && isCharging) {
+            pctRow
+                .addContent(LayoutElementBuilders.Spacer.Builder().setWidth(dp(2f)).build())
+                .addContent(
+                    LayoutElementBuilders.Image.Builder()
+                        .setResourceId(ID_ICON_CHARGING_BOLT)
+                        .setWidth(dp(9f))
+                        .setHeight(dp(9f))
+                        .setColorFilter(
+                            LayoutElementBuilders.ColorFilter.Builder()
+                                .setTint(argb(pctColor))
+                                .build()
+                        )
+                        .build()
+                )
+        }
 
         val labelText = Text.Builder(applicationContext, label)
             .setTypography(Typography.TYPOGRAPHY_CAPTION2)
-            .setColor(argb(COLOR_TEXT_MUTED))
+            .setColor(argb(NuclearTileUiHelper.COLOR_TEXT_MUTED))
             .build()
 
         return LayoutElementBuilders.Box.Builder()
@@ -297,7 +305,7 @@ class NuclearTileService : TileService() {
                 ModifiersBuilders.Modifiers.Builder()
                     .setBackground(
                         ModifiersBuilders.Background.Builder()
-                            .setColor(argb(COLOR_SURFACE_CARD))
+                            .setColor(argb(NuclearTileUiHelper.COLOR_SURFACE_CARD))
                             .setCorner(ModifiersBuilders.Corner.Builder().setRadius(dp(12f)).build())
                             .build()
                     )
@@ -316,25 +324,10 @@ class NuclearTileService : TileService() {
                     .setHorizontalAlignment(LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER)
                     .addContent(imageElement)
                     .addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(2f)).build())
-                    .addContent(pctText)
+                    .addContent(pctRow.build())
                     .addContent(labelText)
                     .build()
             )
-            .build()
-    }
-
-    private fun createActivityClickable(context: Context, action: String?): ModifiersBuilders.Clickable {
-        val launchActionBuilder = ActionBuilders.LaunchAction.Builder()
-            .setAndroidActivity(
-                ActionBuilders.AndroidActivity.Builder()
-                    .setPackageName(context.packageName)
-                    .setClassName(WearMainActivity::class.java.name)
-                    .build()
-            )
-
-        return ModifiersBuilders.Clickable.Builder()
-            .setId(action ?: "main_activity")
-            .setOnClick(launchActionBuilder.build())
             .build()
     }
 
@@ -343,11 +336,6 @@ class NuclearTileService : TileService() {
         const val ID_ICON_RIGHT_BUD = "id_icon_right_bud"
         const val ID_ICON_CASE = "id_icon_case"
         const val ID_ICON_HEADPHONE = "id_icon_headphone"
-
-        private const val COLOR_BLACK = 0xFF000000.toInt()
-        private const val COLOR_SURFACE_CARD = 0xFF181A22.toInt()
-        private const val COLOR_SONY_GOLD = 0xFFD4AF37.toInt()
-        private const val COLOR_TEXT_PRIMARY = 0xFFFFFFFF.toInt()
-        private const val COLOR_TEXT_MUTED = 0xFFA0A0B0.toInt()
+        const val ID_ICON_CHARGING_BOLT = "id_icon_charging_bolt"
     }
 }

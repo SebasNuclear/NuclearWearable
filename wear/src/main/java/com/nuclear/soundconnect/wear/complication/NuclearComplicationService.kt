@@ -15,11 +15,11 @@ import com.nuclear.soundconnect.bluetooth.DeviceType
 import com.nuclear.soundconnect.wear.R
 import com.nuclear.soundconnect.wear.data.WearHeadsetRepository
 import com.nuclear.soundconnect.wear.presentation.WearMainActivity
+import com.nuclear.soundconnect.wear.presentation.util.SonyModelDrawables
 
 /**
- * Proveedor de Complicaciones para carátulas de reloj Wear OS (Estilo Samsung Complications).
- * Soporta ranuras compactas de fila única (SHORT_TEXT y RANGED_VALUE) para monitorear
- * la batería y el modo de ruido actual desde cualquier carátula.
+ * Proveedor de Complicaciones para carátulas de reloj Wear OS.
+ * Soporta ranuras compactas SHORT_TEXT y RANGED_VALUE mostrando el icono del modelo real.
  */
 class NuclearComplicationService : SuspendingComplicationDataSourceService() {
 
@@ -71,7 +71,9 @@ class NuclearComplicationService : SuspendingComplicationDataSourceService() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val primaryLevel = if (state.deviceType == DeviceType.OVER_EAR) {
+        val primaryLevel = if (!state.isConnected) {
+            -1
+        } else if (state.deviceType == DeviceType.OVER_EAR) {
             state.singleBattery.level
         } else {
             if (state.leftBattery.isAvailable && state.rightBattery.isAvailable) {
@@ -86,10 +88,17 @@ class NuclearComplicationService : SuspendingComplicationDataSourceService() {
         }
 
         val text = if (primaryLevel in 0..100) "$primaryLevel%" else "--%"
-        val iconRes = if (state.deviceType == DeviceType.OVER_EAR) {
-            R.drawable.ic_generic_headphone
+        val title = if (state.isConnected && state.effectiveHasAnc) {
+            state.noiseMode.name
         } else {
-            R.drawable.ic_wf1000xm6_bud_left
+            state.deviceName
+        }
+
+        val drawables = SonyModelDrawables.getDrawablesForFamily(state.modelFamily)
+        val iconRes = if (state.deviceType == DeviceType.OVER_EAR) {
+            drawables.headphone
+        } else {
+            drawables.leftBud
         }
         val icon = MonochromaticImage.Builder(Icon.createWithResource(this, iconRes)).build()
 
@@ -99,7 +108,7 @@ class NuclearComplicationService : SuspendingComplicationDataSourceService() {
                     text = PlainComplicationText.Builder(text).build(),
                     contentDescription = PlainComplicationText.Builder(state.deviceName).build()
                 )
-                    .setTitle(PlainComplicationText.Builder(state.noiseMode.name).build())
+                    .setTitle(PlainComplicationText.Builder(title).build())
                     .setMonochromaticImage(icon)
                     .setTapAction(tapIntent)
                     .build()
@@ -113,7 +122,7 @@ class NuclearComplicationService : SuspendingComplicationDataSourceService() {
                     contentDescription = PlainComplicationText.Builder(state.deviceName).build()
                 )
                     .setText(PlainComplicationText.Builder(text).build())
-                    .setTitle(PlainComplicationText.Builder(state.noiseMode.name).build())
+                    .setTitle(PlainComplicationText.Builder(title).build())
                     .setMonochromaticImage(icon)
                     .setTapAction(tapIntent)
                     .build()

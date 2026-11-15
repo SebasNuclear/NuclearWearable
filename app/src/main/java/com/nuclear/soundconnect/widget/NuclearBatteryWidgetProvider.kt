@@ -70,7 +70,7 @@ class NuclearBatteryWidgetProvider : AppWidgetProvider() {
 
         when (intent.action) {
             ACTION_BATTERY_REFRESH -> {
-                performHapticFeedback(context)
+                WidgetPrefsHelper.performHapticFeedback(context)
                 SonyForegroundService.startSync(context)
             }
             BluetoothDevice.ACTION_ACL_CONNECTED -> {
@@ -235,24 +235,5 @@ class NuclearBatteryWidgetProvider : AppWidgetProvider() {
         views.setOnClickPendingIntent(R.id.header_device_info, appPending)
 
         return views
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun performHapticFeedback(context: Context) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
-                vibratorManager?.defaultVibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
-            } else {
-                @Suppress("DEPRECATION")
-                val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
-                } else {
-                    @Suppress("DEPRECATION")
-                    vibrator?.vibrate(18)
-                }
-            }
-        } catch (_: Exception) {}
     }
 }

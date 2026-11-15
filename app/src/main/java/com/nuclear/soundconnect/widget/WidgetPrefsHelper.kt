@@ -7,6 +7,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import androidx.core.graphics.ColorUtils
 
 object WidgetPrefsHelper {
@@ -58,6 +62,22 @@ object WidgetPrefsHelper {
     fun getAlphaPercent(context: Context, widgetId: Int): Int {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         return prefs.getInt("$KEY_PREFIX_ALPHA$widgetId", 90) // 90% default One UI
+    }
+
+    /**
+     * Respuesta háptica ligera compartida para toques en los widgets.
+     */
+    fun performHapticFeedback(context: Context) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
+                vibratorManager?.defaultVibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
+            } else {
+                @Suppress("DEPRECATION")
+                val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+                vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
+            }
+        } catch (_: Exception) {}
     }
 
     fun setAlphaPercent(context: Context, widgetId: Int, alpha: Int) {

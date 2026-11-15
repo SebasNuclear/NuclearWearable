@@ -89,7 +89,8 @@ namespace NuclearWearableLauncher
                             if (File.Exists(jarPath))
                             {
                                 FileInfo fi = new FileInfo(jarPath);
-                                if (fi.Length == stream.Length)
+                                DateTime exeTime = File.GetLastWriteTimeUtc(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                                if (fi.Length == stream.Length && exeTime <= fi.LastWriteTimeUtc)
                                 {
                                     needExtract = false;
                                 }

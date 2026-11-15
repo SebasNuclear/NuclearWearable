@@ -862,8 +862,11 @@ fun AboutSheet(
     textPrimary: Color,
     textSecondary: Color,
     accentColor: Color,
+    onOpenLab: () -> Unit = {},
     onClose: () -> Unit
 ) {
+    var tapCount by remember { mutableStateOf(0) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -898,7 +901,17 @@ fun AboutSheet(
             text = strings.aboutVersion,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
-            color = textSecondary
+            color = if (tapCount in 1..4) accentColor else textSecondary,
+            modifier = Modifier
+                .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    tapCount++
+                    if (tapCount >= 5) {
+                        tapCount = 0
+                        onOpenLab()
+                    }
+                }
+                .padding(horizontal = 8.dp, vertical = 2.dp)
         )
 
         Spacer(modifier = Modifier.height(14.dp))

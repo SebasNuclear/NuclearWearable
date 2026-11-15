@@ -1,0 +1,48 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Almohadilla foam acústica compacta (Inclinada a la izquierda) -->
+    <path
+        android:fillColor="#24FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.3"
+        android:strokeLineJoin="round"
+        android:pathData="M 21,22 C 17,21 13,23 12,27 C 13,31 17,33 21,32 Z" />
+
+    <!-- Cuerpo ergonómico compacto ultra-curvado característico del XM5 -->
+    <path
+        android:fillColor="#1FFFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:pathData="M 27,12 C 22.5,12 19.5,15 19.5,20 C 19.5,27 24,36 29,36 C 33.5,36 36,31 36,25 C 36,18 32,12 27,12 Z" />
+
+    <!-- Rejilla enrasada aerodinámica antiviento (flush mesh grille) con acento cobre tenue -->
+    <path
+        android:fillColor="#15FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M 30,14.5 C 28,13.8 25.5,13.8 24,15 C 24.5,16.5 27,17 29,16 Z" />
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="0.8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 28.5,15 L 25.5,15.5" />
+
+    <!-- Micrófono inferior sutil -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 29,30 A 1,1 0 1,1 28.9,30 Z" />
+
+    <!-- Reflejo brillante del lateral pulido característico del XM5 -->
+    <path
+        android:strokeColor="#60FFFFFF"
+        android:strokeWidth="0.9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 33.5,18 C 34,23 33,28 30.5,32" />
+
+</vector>

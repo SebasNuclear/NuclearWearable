@@ -38,6 +38,10 @@ object NuclearWearProtocol {
     const val KEY_ACCENT_COLOR = "accent_color"
     const val KEY_LAST_SYNC = "last_sync"
     const val KEY_TIMESTAMP = "timestamp"
+    const val KEY_HARDWARE_MODEL = "hardware_model"
+    const val KEY_FIRMWARE_VERSION = "firmware_version"
+    const val KEY_PROTOCOL_VERSION = "protocol_version"
+    const val KEY_CODEC_NAME = "codec_name"
 
     // Comandos de byte para SET_NOISE_MODE
     const val BYTE_ANC: Byte = 0
@@ -80,7 +84,7 @@ object NuclearWearProtocol {
         dataMap.putString(KEY_DEVICE_ADDRESS, state.deviceAddress)
         dataMap.putString(KEY_DEVICE_TYPE, state.deviceType.name)
         dataMap.putString(KEY_MODEL_FAMILY, state.modelFamily.name)
-        dataMap.putBoolean(KEY_HAS_ANC, state.modelFamily.hasAnc)
+        dataMap.putBoolean(KEY_HAS_ANC, state.effectiveHasAnc)
         dataMap.putInt(KEY_BAT_LEFT, state.leftBattery.level)
         dataMap.putBoolean(KEY_BAT_LEFT_CHG, state.leftBattery.isCharging)
         dataMap.putInt(KEY_BAT_RIGHT, state.rightBattery.level)
@@ -95,6 +99,10 @@ object NuclearWearProtocol {
         dataMap.putInt(KEY_ACCENT_COLOR, state.accentColor)
         dataMap.putLong(KEY_LAST_SYNC, state.lastSyncTime)
         dataMap.putLong(KEY_TIMESTAMP, System.currentTimeMillis())
+        dataMap.putString(KEY_HARDWARE_MODEL, state.hardwareModelName)
+        dataMap.putString(KEY_FIRMWARE_VERSION, state.firmwareVersion)
+        dataMap.putInt(KEY_PROTOCOL_VERSION, state.protocolVersion)
+        dataMap.putString(KEY_CODEC_NAME, state.codecName)
     }
 
     fun parseDataMap(dataMap: DataMap): HeadsetState {
@@ -135,6 +143,11 @@ object NuclearWearProtocol {
         val voiceFocus = dataMap.getBoolean(KEY_VOICE_FOCUS, false)
         val accentColor = dataMap.getInt(KEY_ACCENT_COLOR, 0xFF00E676.toInt())
         val lastSync = dataMap.getLong(KEY_LAST_SYNC, 0L)
+        val hardwareModel = dataMap.getString(KEY_HARDWARE_MODEL, "")
+        val firmwareVer = dataMap.getString(KEY_FIRMWARE_VERSION, "")
+        val protocolVer = dataMap.getInt(KEY_PROTOCOL_VERSION, 2)
+        val codec = dataMap.getString(KEY_CODEC_NAME, "")
+        val supportsAncOpt: Boolean? = if (dataMap.containsKey(KEY_HAS_ANC)) dataMap.getBoolean(KEY_HAS_ANC) else null
 
         return HeadsetState(
             deviceName = devName,
@@ -151,7 +164,12 @@ object NuclearWearProtocol {
             voiceFocus = voiceFocus,
             accentColor = accentColor,
             lastSyncTime = lastSync,
-            forcedModelFamily = forcedFamily
+            forcedModelFamily = forcedFamily,
+            hardwareModelName = hardwareModel,
+            firmwareVersion = firmwareVer,
+            protocolVersion = protocolVer,
+            codecName = codec,
+            supportsAncOverride = if (forcedFamily != null) null else supportsAncOpt
         )
     }
 }

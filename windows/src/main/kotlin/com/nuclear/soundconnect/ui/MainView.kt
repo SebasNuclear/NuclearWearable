@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nuclear.soundconnect.audio.LiveCodecHudInfo
 import com.nuclear.soundconnect.bluetooth.*
 
 /**
@@ -42,10 +43,13 @@ fun WindowScope.MainView(
     onClose: () -> Unit = {}
 ) {
     val state by manager.state.collectAsState()
+    val codecHud by manager.codecHud.collectAsState()
+    val hexLogs by manager.hexLogsHistory.collectAsState()
     val themeMode by manager.themeMode.collectAsState()
     val isOled by manager.isOled.collectAsState()
     val accentIndex by manager.accentIndex.collectAsState()
     val language by manager.language.collectAsState()
+    val isEnglish = language == AppLanguage.EN
 
     val accentColor = ACCENT_PALETTE.getOrNull(accentIndex) ?: Color(0xFF00E676)
     val strings = remember(language) { AppStrings.get(language) }
@@ -75,11 +79,16 @@ fun WindowScope.MainView(
     val dividerColor = if (isDark) Color(0x1FFFFFFF) else Color(0x1F000000)
 
     // Estados de las hojas modales
+    var showAudioEqSheet by remember { mutableStateOf(false) }
+    var showComfortSheet by remember { mutableStateOf(false) }
+    var showMultipointSheet by remember { mutableStateOf(false) }
+    var showAutomationBackupSheet by remember { mutableStateOf(false) }
     var showThemeSheet by remember { mutableStateOf(false) }
     var showHistorySheet by remember { mutableStateOf(false) }
     var showCompatibleModelsSheet by remember { mutableStateOf(false) }
     var showLanguageSheet by remember { mutableStateOf(false) }
     var showAboutSheet by remember { mutableStateOf(false) }
+    var showLabSheet by remember { mutableStateOf(false) }
 
     Surface(
         modifier = modifier
@@ -176,14 +185,20 @@ fun WindowScope.MainView(
                     textSecondary = textSecondary,
                     accentColor = accentColor,
                     isDark = isDark,
-                    strings = strings
+                    strings = strings,
+                    codecHud = codecHud,
+                    onCodecClick = {
+                        manager.refreshCodecHud()
+                        if (state.isConnected) manager.syncExtendedControlsAsync()
+                        showAudioEqSheet = true
+                    }
                 )
             }
 
             // ==========================================
             // 2. ACCESOS RÁPIDOS DE CONTROL DE RUIDO (CARD 26.dp)
             // ==========================================
-            if (state.modelFamily.hasAnc) {
+            if (state.effectiveHasAnc) {
                 item {
                     QuickNoiseControlCard(
                         state = state,
@@ -194,7 +209,8 @@ fun WindowScope.MainView(
                         strings = strings,
                         onModeSelected = { mode -> manager.setNoiseModeAsync(mode) },
                         onLevelChanged = { level -> manager.setAmbientLevel(level) },
-                        onVoiceFocusChanged = { focus -> manager.setVoiceFocus(focus) }
+                        onVoiceFocusChanged = { focus -> manager.setVoiceFocus(focus) },
+                        onWindNoiseChanged = { enabled -> manager.setWindNoiseReductionAsync(enabled) }
                     )
                 }
             }
@@ -209,7 +225,73 @@ fun WindowScope.MainView(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.fillMaxWidth()) {
-                        // Fila 1: Historial de dispositivos
+                        val caps = state.capabilities
+
+                        // Fila Fase 2: Audio y Ecualizador + Códec en vivo
+                        MenuRowItem(
+                            icon = Icons.Default.Equalizer,
+                            iconBgColor = Color(0xFF6366F1),
+                            title = strings.audioEqTitle,
+                            subtitle = strings.audioEqSubtitle,
+                            textPrimary = textPrimary,
+                            textSecondary = textSecondary,
+                            onClick = {
+                                manager.refreshCodecHud()
+                                if (state.isConnected) manager.syncExtendedControlsAsync()
+                                showAudioEqSheet = true
+                            }
+                        )
+
+                        HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+                        // Fila Fase 2/3.4: Controles, Bienestar, Gestos y Buscar Audífonos
+                        MenuRowItem(
+                            icon = Icons.Default.Tune,
+                            iconBgColor = Color(0xFFF59E0B),
+                            title = strings.comfortControlsTitle,
+                            subtitle = strings.comfortControlsSubtitle,
+                            textPrimary = textPrimary,
+                            textSecondary = textSecondary,
+                            onClick = {
+                                if (state.isConnected) manager.syncExtendedControlsAsync()
+                                showComfortSheet = true
+                            }
+                        )
+
+                        HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+                        // Fila Fase 2: Multipunto (solo si aplica a V2 / hosts descubiertos)
+                        if (caps.supportsMultipoint || state.pairedDevices.isNotEmpty()) {
+                            MenuRowItem(
+                                icon = Icons.Default.Devices,
+                                iconBgColor = Color(0xFF06B6D4),
+                                title = strings.multipointTitle,
+                                subtitle = strings.multipointSubtitle,
+                                textPrimary = textPrimary,
+                                textSecondary = textSecondary,
+                                onClick = {
+                                    if (state.isConnected) manager.syncExtendedControlsAsync()
+                                    showMultipointSheet = true
+                                }
+                            )
+
+                            HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+                        }
+
+                        // Fila Fase 3.3 / 3.5: Automatización Local y Respaldo JSON
+                        MenuRowItem(
+                            icon = Icons.Default.AutoAwesome,
+                            iconBgColor = Color(0xFFEC4899),
+                            title = strings.automationBackupTitle,
+                            subtitle = strings.automationBackupSubtitle,
+                            textPrimary = textPrimary,
+                            textSecondary = textSecondary,
+                            onClick = { showAutomationBackupSheet = true }
+                        )
+
+                        HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+                        // Fila 5: Historial de dispositivos
                         MenuRowItem(
                             icon = Icons.Default.Headphones,
                             iconBgColor = Color(0xFF34C759),
@@ -286,6 +368,72 @@ fun WindowScope.MainView(
         // ==========================================
         // HOJAS MODALES (OVERLAYS NATIVOS NUCLEARUI)
         // ==========================================
+        NuclearModalSheet(
+            visible = showAudioEqSheet,
+            onDismissRequest = { showAudioEqSheet = false },
+            cardColor = cardColor
+        ) {
+            AudioEqSheet(
+                state = state,
+                hud = codecHud,
+                isEnglish = isEnglish,
+                manager = manager,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showAudioEqSheet = false }
+            )
+        }
+
+        NuclearModalSheet(
+            visible = showComfortSheet,
+            onDismissRequest = { showComfortSheet = false },
+            cardColor = cardColor
+        ) {
+            ComfortControlsSheet(
+                state = state,
+                isEnglish = isEnglish,
+                manager = manager,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showComfortSheet = false }
+            )
+        }
+
+        NuclearModalSheet(
+            visible = showMultipointSheet,
+            onDismissRequest = { showMultipointSheet = false },
+            cardColor = cardColor
+        ) {
+            MultipointSheet(
+                state = state,
+                manager = manager,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showMultipointSheet = false }
+            )
+        }
+
+        NuclearModalSheet(
+            visible = showAutomationBackupSheet,
+            onDismissRequest = { showAutomationBackupSheet = false },
+            cardColor = cardColor
+        ) {
+            AutomationBackupSheet(
+                manager = manager,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showAutomationBackupSheet = false }
+            )
+        }
+
         NuclearModalSheet(
             visible = showThemeSheet,
             onDismissRequest = { showThemeSheet = false },
@@ -372,7 +520,29 @@ fun WindowScope.MainView(
                 textPrimary = textPrimary,
                 textSecondary = textSecondary,
                 accentColor = accentColor,
+                onOpenLab = {
+                    showAboutSheet = false
+                    showLabSheet = true
+                },
                 onClose = { showAboutSheet = false }
+            )
+        }
+
+        NuclearModalSheet(
+            visible = showLabSheet,
+            onDismissRequest = { showLabSheet = false },
+            cardColor = cardColor
+        ) {
+            LabModeSheet(
+                state = state,
+                hud = codecHud,
+                hexLogs = hexLogs,
+                manager = manager,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showLabSheet = false }
             )
         }
     }
@@ -380,7 +550,7 @@ fun WindowScope.MainView(
 }
 
 /**
- * Hero Superior Centrado: Ilustración a escala, nombre y estado de carga compacto.
+ * Hero Superior Centrado: Ilustración a escala, nombre y estado de carga compacto + pill códec en vivo.
  */
 @Composable
 fun HeroShowcase(
@@ -389,7 +559,9 @@ fun HeroShowcase(
     textSecondary: Color,
     accentColor: Color,
     isDark: Boolean,
-    strings: LocalizedStrings
+    strings: LocalizedStrings,
+    codecHud: LiveCodecHudInfo = LiveCodecHudInfo(),
+    onCodecClick: (() -> Unit)? = null
 ) {
     val icons = remember(state.modelFamily) { SonyModelIcons.getIcons(state.modelFamily) }
 
@@ -508,6 +680,68 @@ fun HeroShowcase(
                 }
             }
         }
+
+        if (state.isConnected) {
+            val metaParts = mutableListOf<String>()
+            if (state.hardwareModelName.isNotBlank() &&
+                !state.hardwareModelName.equals(state.deviceName, ignoreCase = true)
+            ) {
+                metaParts.add(state.hardwareModelName)
+            }
+            val liveBadge = codecHud.formatShortBadge()
+            if (liveBadge.isNotBlank()) {
+                metaParts.add(liveBadge)
+            } else if (state.codecName.isNotBlank()) {
+                metaParts.add(state.codecName)
+            }
+            if (state.firmwareVersion.isNotBlank()) {
+                metaParts.add("FW ${state.firmwareVersion}")
+            }
+            if (metaParts.isNotEmpty()) {
+                metaParts.add("V${state.protocolVersion}")
+                Spacer(modifier = Modifier.height(8.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(999.dp))
+                        .background(if (isDark) Color(0xFF1F1F23) else Color(0xFFEBEBF0))
+                        .let { mod -> if (onCodecClick != null) mod.clickable(onClick = onCodecClick) else mod }
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = metaParts.joinToString("  •  "),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = textSecondary
+                    )
+                }
+            }
+            if (codecHud.isHfpCallActive) {
+                Spacer(modifier = Modifier.height(6.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(999.dp))
+                        .background(Color(0x33FF9500))
+                        .let { mod -> if (onCodecClick != null) mod.clickable(onClick = onCodecClick) else mod }
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = null,
+                            tint = Color(0xFFFF9500),
+                            modifier = Modifier.size(13.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = strings.hfpCallWarning,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFFFB703)
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -524,7 +758,8 @@ fun QuickNoiseControlCard(
     strings: LocalizedStrings,
     onModeSelected: (NoiseControlMode) -> Unit,
     onLevelChanged: (Int) -> Unit,
-    onVoiceFocusChanged: (Boolean) -> Unit
+    onVoiceFocusChanged: (Boolean) -> Unit,
+    onWindNoiseChanged: (Boolean) -> Unit = {}
 ) {
     Card(
         shape = RoundedCornerShape(26.dp),
@@ -616,6 +851,34 @@ fun QuickNoiseControlCard(
                         Switch(
                             checked = state.voiceFocus,
                             onCheckedChange = onVoiceFocusChanged,
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = Color.White,
+                                checkedTrackColor = accentColor
+                            )
+                        )
+                    }
+                }
+            }
+
+            // Dedicado a WF-1000XM4 (trama 0x15): filtro automático de viento sobre ANC
+            AnimatedVisibility(visible = state.capabilities.supportsWindNoiseReduction && state.noiseMode == NoiseControlMode.ANC) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f).padding(end = 8.dp)) {
+                            Text(text = strings.windNoiseReductionTitle, fontSize = 13.sp, color = textPrimary)
+                            Text(text = strings.windNoiseReductionDesc, fontSize = 11.sp, color = textSecondary)
+                        }
+                        Switch(
+                            checked = state.windNoiseReduction,
+                            onCheckedChange = onWindNoiseChanged,
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = Color.White,
                                 checkedTrackColor = accentColor

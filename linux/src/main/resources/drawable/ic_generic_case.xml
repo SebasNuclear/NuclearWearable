@@ -1,0 +1,28 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Estuche de carga universal tipo cápsula -->
+    <path
+        android:fillColor="#15FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:pathData="M 8,19 C 8,15 14,12 24,12 C 34,12 40,15 40,19 L 40,30 C 40,35 34,37 24,37 C 14,37 8,35 8,30 Z" />
+
+    <!-- Línea divisoria de la tapa -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 8,23 C 12,25.5 17,26.5 24,26.5 C 31,26.5 36,25.5 40,23" />
+
+    <!-- LED indicador frontal -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 24,31 A 1,1 0 1,1 23.9,31 Z" />
+
+</vector>

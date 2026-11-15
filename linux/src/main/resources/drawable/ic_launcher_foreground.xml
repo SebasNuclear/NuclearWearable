@@ -1,0 +1,66 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 1. Almohadilla de Espuma (Colita en tercio inferior: Y=54 a Y=73) -->
+    <path
+        android:fillColor="#282830"
+        android:pathData="M 45,54 C 40,53 34,57 32,62 C 30,66 31,70 34,72 C 37,73 42,71 45,67 Z" />
+    <path
+        android:fillColor="#141418"
+        android:pathData="M 34,62 C 33,63 33,67 35,67 C 36.5,67 37.5,64 36.5,63 C 35.5,62 34.5,62 34,62 Z" />
+
+    <!-- 4. Flanco lateral con perspectiva 3D (grabado Sony libre arriba) -->
+    <path
+        android:fillColor="#181820"
+        android:pathData="M 57,29 C 49,29 42,36 42,46 L 42,62 C 42,72 49,79 57,79 L 57,29 Z" />
+    <!-- Acento dorado vertical (grabado de Sony en tercio superior) -->
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 46.5,41 L 46.5,49" />
+
+    <!-- 5. Cara Frontal Exterior (Píldora simétrica centrada 24x50dp) -->
+    <path
+        android:fillColor="#24242C"
+        android:pathData="M 57,29 C 63.6,29 69,34.4 69,41 L 69,67 C 69,73.6 63.6,79 57,79 C 50.4,79 45,73.6 45,67 L 45,41 C 45,34.4 50.4,29 57,29 Z" />
+
+    <!-- Bisel de iluminación suave en el borde izquierdo de la cápsula -->
+    <path
+        android:strokeColor="#3D3D48"
+        android:strokeWidth="0.8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 57,30 C 50.5,30 46,35 46,42 L 46,66 C 46,73 50.5,78 57,78" />
+
+    <!-- 6. Micrófono Acústico Superior (Rejilla circular idéntica a la foto) -->
+    <path
+        android:fillColor="#131317"
+        android:strokeColor="#3A3A46"
+        android:strokeWidth="0.7"
+        android:pathData="M 57,33.7 A 4.3,4.3 0 1,1 56.9,33.7 Z" />
+    <path
+        android:fillColor="#1D1D24"
+        android:pathData="M 57,34.8 A 3.2,3.2 0 1,1 56.9,34.8 Z" />
+    <path
+        android:fillColor="#3A3A46"
+        android:pathData="M 57,37.1 A 0.9,0.9 0 1,1 57,38.9 A 0.9,0.9 0 1,1 57,37.1 Z" />
+
+    <!-- 7. Micrófono Acústico Inferior (Rejilla circular idéntica a la foto) -->
+    <path
+        android:fillColor="#131317"
+        android:strokeColor="#3A3A46"
+        android:strokeWidth="0.7"
+        android:pathData="M 57,65.7 A 4.3,4.3 0 1,1 56.9,65.7 Z" />
+    <path
+        android:fillColor="#1D1D24"
+        android:pathData="M 57,66.8 A 3.2,3.2 0 1,1 56.9,66.8 Z" />
+    <path
+        android:fillColor="#3A3A46"
+        android:pathData="M 57,69.1 A 0.9,0.9 0 1,1 57,70.9 A 0.9,0.9 0 1,1 57,69.1 Z" />
+
+</vector>

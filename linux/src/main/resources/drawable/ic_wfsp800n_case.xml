@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Estuche deportivo curvo robusto SP800N -->
+    <path
+        android:fillColor="#15FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:pathData="M 8,17 C 8,14 13,12 24,12 C 35,12 40,14 40,17 L 39,33 C 39,37 34,40 24,40 C 14,40 9,37 9,33 Z" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:pathData="M 8,23 C 14,25 34,25 40,23" />
+</vector>

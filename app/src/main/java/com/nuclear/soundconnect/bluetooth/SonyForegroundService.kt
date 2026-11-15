@@ -75,6 +75,8 @@ class SonyForegroundService : Service() {
             }
         } catch (e: Exception) {
             android.util.Log.e("SonyForegroundService", "startForeground failed", e)
+            stopSelf()
+            return
         }
     }
 

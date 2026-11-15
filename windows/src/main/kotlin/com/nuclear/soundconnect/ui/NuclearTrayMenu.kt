@@ -115,7 +115,7 @@ fun NuclearTrayMenu(
                 ) {
                     if (state.deviceType == DeviceType.OVER_EAR) {
                         BatteryMiniPill(
-                            label = "Batería",
+                            label = strings.batteryLabel,
                             percent = state.singleBattery.displayPercent,
                             isCharging = state.singleBattery.isCharging,
                             textPrimary = textPrimary,
@@ -150,7 +150,7 @@ fun NuclearTrayMenu(
             }
 
             // 3. Selector de Control de Ruido (Píldoras rápidas con accentColor)
-            if (state.isConnected && state.modelFamily.hasAnc) {
+            if (state.isConnected && state.effectiveHasAnc) {
                 Text(
                     text = strings.soundSettingsTitle,
                     color = textSecondary,

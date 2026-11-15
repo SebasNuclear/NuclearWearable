@@ -213,7 +213,7 @@ fun main() {
 
         // Ventana principal estilizada estilo Single-Surface Companion
         val windowState = rememberWindowState(
-            size = DpSize(430.dp, 690.dp),
+            size = DpSize(430.dp, 730.dp),
             position = WindowPosition(Alignment.Center)
         )
 

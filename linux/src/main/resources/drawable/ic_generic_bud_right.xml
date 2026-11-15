@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Almohadilla acústica universal (in-ear) -->
+    <path
+        android:fillColor="#24FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.3"
+        android:strokeLineJoin="round"
+        android:pathData="M 21,21 C 16,20 12,22 11,26 C 12,30 16,32 21,31 Z" />
+
+    <!-- Cuerpo universal de auricular TWS -->
+    <path
+        android:fillColor="#1FFFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.5"
+        android:pathData="M 28,12 C 23,12 20,16 20,23 C 20,30 24,35 29,35 C 34,35 36,30 36,23 C 36,16 33,12 28,12 Z" />
+
+    <!-- Indicador de micrófono genérico -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 28,16 A 1.2,1.2 0 1,1 27.9,16 Z" />
+
+</vector>

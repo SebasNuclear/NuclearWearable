@@ -1,0 +1,48 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Diadema fina continua CH520 -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 13,24 C 13,11 35,11 35,24" />
+    <!-- Brazo extensor telescópico visible -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 12.0,22.0 L 12.0,28.0" />
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M 36.0,22.0 L 36.0,28.0" />
+    <!-- Copas circulares pequeñas On-Ear (Supraaurales, circulares no ovaladas) -->
+    <path
+        android:fillColor="#30FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.4"
+        android:pathData="M 5.5,34.0 A 6.5,6.5 0 1,0 18.5,34.0 A 6.5,6.5 0 1,0 5.5,34.0 Z" />
+    <path
+        android:fillColor="#10FFFFFF"
+        android:strokeColor="#60FFFFFF"
+        android:strokeWidth="0.8"
+        android:pathData="M 8.5,34.0 A 3.5,3.5 0 1,0 15.5,34.0 A 3.5,3.5 0 1,0 8.5,34.0 Z" />
+    <!-- Copa Derecha On-Ear circular -->
+    <path
+        android:fillColor="#30FFFFFF"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.4"
+        android:pathData="M 29.5,34.0 A 6.5,6.5 0 1,0 42.5,34.0 A 6.5,6.5 0 1,0 29.5,34.0 Z" />
+    <path
+        android:fillColor="#10FFFFFF"
+        android:strokeColor="#60FFFFFF"
+        android:strokeWidth="0.8"
+        android:pathData="M 32.5,34.0 A 3.5,3.5 0 1,0 39.5,34.0 A 3.5,3.5 0 1,0 32.5,34.0 Z" />
+</vector>

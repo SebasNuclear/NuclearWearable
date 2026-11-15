@@ -11,6 +11,19 @@ import androidx.compose.material.icons.filled.Category
 import com.nuclear.soundconnect.bluetooth.SonyModelFamily
 
 import android.Manifest
+import android.provider.Settings
+
+import com.nuclear.soundconnect.audio.LiveCodecHudInfo
+import com.nuclear.soundconnect.backup.ProfileBackupManager
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Devices
+import androidx.compose.material.icons.filled.Equalizer
+import androidx.compose.material.icons.filled.FilterAlt
+import androidx.compose.material.icons.filled.SaveAlt
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 
 import android.annotation.SuppressLint
 
@@ -310,6 +323,7 @@ fun MainApp(repository: SonyHeadsetRepository) {
     val context = LocalContext.current
 
     val state by repository.state.collectAsState()
+    val codecHud by repository.liveCodecHud.collectAsState()
 
 
 
@@ -392,78 +406,42 @@ fun MainApp(repository: SonyHeadsetRepository) {
     LaunchedEffect(Unit) {
 
         if (!permissionsGranted) {
-
-            val permissions = mutableListOf<String>()
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
-                permissions.add(Manifest.permission.BLUETOOTH_CONNECT)
-
-                permissions.add(Manifest.permission.BLUETOOTH_SCAN)
-
-            } else {
-
-                permissions.add(Manifest.permission.BLUETOOTH)
-
-                permissions.add(Manifest.permission.BLUETOOTH_ADMIN)
-
-            }
-
+            val permissions = mutableListOf(
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_SCAN
+            )
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-
                 permissions.add(Manifest.permission.POST_NOTIFICATIONS)
-
             }
-
             permissionLauncher.launch(permissions.toTypedArray())
-
         } else {
-
             repository.syncTelemetryAsync()
-
         }
-
     }
-
-
 
     // Hex logs
-
     val hexLogs = remember { mutableStateListOf<HexLogEntry>() }
-
     LaunchedEffect(Unit) {
-
         repository.rfcommClient.hexLogs.collect { log ->
-
             hexLogs.add(log)
-
             if (hexLogs.size > 200) hexLogs.removeAt(0)
-
         }
-
     }
 
-
-
     // Bottom sheets state
-
     val language by repository.language.collectAsState()
-
     val strings = remember(language) { AppStrings.get(language) }
 
-
-
     var showThemeSheet by remember { mutableStateOf(false) }
-
     var showHistorySheet by remember { mutableStateOf(false) }
-
-    var showSoundSheet by remember { mutableStateOf(false) }
-
     var showLanguageSheet by remember { mutableStateOf(false) }
-
     var showAboutSheet by remember { mutableStateOf(false) }
-
     var showCompatibleModelsSheet by remember { mutableStateOf(false) }
+    var showLabSheet by remember { mutableStateOf(false) }
+    var showAudioEqSheet by remember { mutableStateOf(false) }
+    var showComfortSheet by remember { mutableStateOf(false) }
+    var showMultipointSheet by remember { mutableStateOf(false) }
+    var showAutomationBackupSheet by remember { mutableStateOf(false) }
 
 
 
@@ -645,7 +623,11 @@ fun MainApp(repository: SonyHeadsetRepository) {
 
                     isDark = isDark,
 
-                    strings = strings
+                    strings = strings,
+
+                    codecHud = codecHud,
+
+                    onCodecClick = { showAudioEqSheet = true }
 
                 )
 
@@ -657,7 +639,7 @@ fun MainApp(repository: SonyHeadsetRepository) {
 
             // Se muestra ÚNICAMENTE si el modelo cuenta con soporte de hardware ANC
 
-            if (state.modelFamily.hasAnc) {
+            if (state.effectiveHasAnc) {
 
                 item {
 
@@ -716,6 +698,72 @@ fun MainApp(repository: SonyHeadsetRepository) {
                 ) {
 
                     Column(modifier = Modifier.fillMaxWidth()) {
+
+                        val caps = state.capabilities
+
+                        // Fila Fase 2: Audio y Ecualizador + Codec HUD
+                        MenuRowItem(
+                            icon = Icons.Default.Equalizer,
+                            iconBgColor = Color(0xFF6366F1),
+                            title = strings.audioEqTitle,
+                            subtitle = strings.audioEqSubtitle,
+                            textPrimary = textPrimary,
+                            textSecondary = textSecondary,
+                            onClick = {
+                                repository.refreshCodecHud()
+                                if (state.isConnected) repository.syncExtendedControlsAsync()
+                                showAudioEqSheet = true
+                            }
+                        )
+
+                        HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+                        // Fila Fase 2/3.4: Controles, Bienestar, Gestos y Buscar Audífonos
+                        MenuRowItem(
+                            icon = Icons.Default.Tune,
+                            iconBgColor = Color(0xFFF59E0B),
+                            title = strings.comfortControlsTitle,
+                            subtitle = strings.comfortControlsSubtitle,
+                            textPrimary = textPrimary,
+                            textSecondary = textSecondary,
+                            onClick = {
+                                if (state.isConnected) repository.syncExtendedControlsAsync()
+                                showComfortSheet = true
+                            }
+                        )
+
+                        HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+                        // Fila Fase 2: Multipunto (solo si aplica a V2 / capacidades descubiertas)
+                        if (caps.supportsMultipoint || state.pairedDevices.isNotEmpty()) {
+                            MenuRowItem(
+                                icon = Icons.Default.Devices,
+                                iconBgColor = Color(0xFF06B6D4),
+                                title = strings.multipointTitle,
+                                subtitle = strings.multipointSubtitle,
+                                textPrimary = textPrimary,
+                                textSecondary = textSecondary,
+                                onClick = {
+                                    if (state.isConnected) repository.syncExtendedControlsAsync()
+                                    showMultipointSheet = true
+                                }
+                            )
+
+                            HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+                        }
+
+                        // Fila Fase 3.3 / 3.5: Automatización Local y Respaldo JSON
+                        MenuRowItem(
+                            icon = Icons.Default.AutoAwesome,
+                            iconBgColor = Color(0xFFEC4899),
+                            title = strings.automationBackupTitle,
+                            subtitle = strings.automationBackupSubtitle,
+                            textPrimary = textPrimary,
+                            textSecondary = textSecondary,
+                            onClick = { showAutomationBackupSheet = true }
+                        )
+
+                        HorizontalDivider(color = dividerColor, thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
 
                         // Fila 2: Historial de dispositivos
 
@@ -1103,23 +1151,205 @@ fun MainApp(repository: SonyHeadsetRepository) {
         ) {
 
             AboutSheet(
-
                 strings = strings,
-
                 textPrimary = textPrimary,
-
                 textSecondary = textSecondary,
-
                 accentColor = accentColor,
-
+                onOpenLab = {
+                    showAboutSheet = false
+                    showLabSheet = true
+                },
                 onClose = { showAboutSheet = false }
-
             )
-
         }
-
     }
 
+    if (showAudioEqSheet) {
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ModalBottomSheet(
+            onDismissRequest = { showAudioEqSheet = false },
+            sheetState = sheetState,
+            containerColor = cardColor
+        ) {
+            AudioEqSheet(
+                state = state,
+                hud = codecHud,
+                isEnglish = language == AppLanguage.EN,
+                repository = repository,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showAudioEqSheet = false }
+            )
+        }
+    }
+
+    if (showComfortSheet) {
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ModalBottomSheet(
+            onDismissRequest = { showComfortSheet = false },
+            sheetState = sheetState,
+            containerColor = cardColor
+        ) {
+            ComfortControlsSheet(
+                state = state,
+                isEnglish = language == AppLanguage.EN,
+                repository = repository,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showComfortSheet = false }
+            )
+        }
+    }
+
+    if (showMultipointSheet) {
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ModalBottomSheet(
+            onDismissRequest = { showMultipointSheet = false },
+            sheetState = sheetState,
+            containerColor = cardColor
+        ) {
+            MultipointSheet(
+                state = state,
+                repository = repository,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onClose = { showMultipointSheet = false }
+            )
+        }
+    }
+
+    if (showAutomationBackupSheet) {
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ModalBottomSheet(
+            onDismissRequest = { showAutomationBackupSheet = false },
+            sheetState = sheetState,
+            containerColor = cardColor
+        ) {
+            AutomationBackupSheet(
+                repository = repository,
+                textPrimary = textPrimary,
+                textSecondary = textSecondary,
+                accentColor = accentColor,
+                strings = strings,
+                onAccentRestored = {
+                    accentIndex = prefs.getInt("accent_idx", accentIndex)
+                },
+                onClose = { showAutomationBackupSheet = false }
+            )
+        }
+    }
+
+    if (showLabSheet) {
+        var hexUnknownOnly by remember { mutableStateOf(false) }
+        val hexExportLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.CreateDocument("text/plain")
+        ) { uri ->
+            if (uri != null) {
+                val dump = ProfileBackupManager.formatHexMonitorExport(hexLogs, hexUnknownOnly)
+                val ok = runCatching {
+                    context.contentResolver.openOutputStream(uri)?.use { out ->
+                        out.write(dump.toByteArray(Charsets.UTF_8))
+                    } ?: error("Null output")
+                }.isSuccess
+                Toast.makeText(
+                    context,
+                    if (ok) strings.backupExportSuccess else strings.backupImportError,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        ModalBottomSheet(
+            onDismissRequest = { showLabSheet = false },
+            containerColor = cardColor
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 16.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Modo Laboratorio RFCOMM",
+                        fontWeight = FontWeight.Bold,
+                        color = textPrimary,
+                        fontSize = 18.sp
+                    )
+                    IconButton(onClick = { showLabSheet = false }) {
+                        Icon(imageVector = Icons.Default.Close, contentDescription = "Cerrar", tint = textSecondary)
+                    }
+                }
+                Spacer(modifier = Modifier.height(6.dp))
+                val hwDisplay = state.hardwareModelName.ifBlank { state.modelFamily.displayName }
+                val fwDisplay = state.firmwareVersion.ifBlank { "--" }
+                val codecDisplay = codecHud.formatShortBadge().ifBlank { state.codecName.ifBlank { "--" } }
+                val fnT1 = state.supportFunctions.size
+                val fnT2 = state.table2SupportFunctions.size
+                Text(
+                    text = "Proto: V${state.protocolVersion}  •  HW: $hwDisplay  •  FW: $fwDisplay  •  $codecDisplay  •  T1:$fnT1 / T2:$fnT2",
+                    color = textSecondary,
+                    fontSize = 11.sp,
+                    fontFamily = FontFamily.Monospace
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                FilterChip(
+                    selected = hexUnknownOnly,
+                    onClick = { hexUnknownOnly = !hexUnknownOnly },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.FilterAlt,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    },
+                    label = { Text(strings.hexFilterUnknownOnly, fontSize = 11.sp) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = accentColor.copy(alpha = 0.22f),
+                        selectedLabelColor = accentColor,
+                        labelColor = textPrimary
+                    )
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                val displayedLogs = if (hexUnknownOnly) {
+                    hexLogs.filter { ProfileBackupManager.isUnknownOrUnparsedFrame(it) }
+                } else {
+                    hexLogs
+                }
+                HexMonitorCard(
+                    logs = displayedLogs,
+                    onClear = { hexLogs.clear() },
+                    onCopy = {
+                        val text = ProfileBackupManager.formatHexMonitorExport(hexLogs, hexUnknownOnly)
+                        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+                        val clip = android.content.ClipData.newPlainText("RFCOMM Logs", text)
+                        clipboard?.setPrimaryClip(clip)
+                    },
+                    onExportFile = {
+                        hexExportLauncher.launch("nuclearwearable_rfcomm_logs.txt")
+                    },
+                    onShare = {
+                        val dump = ProfileBackupManager.formatHexMonitorExport(hexLogs, hexUnknownOnly)
+                        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_SUBJECT, "NuclearWearable RFCOMM Hex Dump")
+                            putExtra(Intent.EXTRA_TEXT, dump)
+                        }
+                        context.startActivity(Intent.createChooser(sendIntent, strings.hexShareBtn))
+                    }
+                )
+            }
+        }
+    }
 }
 
 
@@ -1144,7 +1374,11 @@ fun HeroShowcase(
 
     isDark: Boolean,
 
-    strings: LocalizedStrings
+    strings: LocalizedStrings,
+
+    codecHud: LiveCodecHudInfo = LiveCodecHudInfo(),
+
+    onCodecClick: (() -> Unit)? = null
 
 ) {
 
@@ -1370,6 +1604,74 @@ fun HeroShowcase(
 
             }
 
+        }
+
+        if (state.isConnected) {
+            val metaParts = mutableListOf<String>()
+            if (state.hardwareModelName.isNotBlank() &&
+                !state.hardwareModelName.equals(state.deviceName, ignoreCase = true)
+            ) {
+                metaParts.add(state.hardwareModelName)
+            }
+            val liveBadge = codecHud.formatShortBadge()
+            if (liveBadge.isNotBlank()) {
+                metaParts.add(liveBadge)
+            } else if (state.codecName.isNotBlank()) {
+                metaParts.add(state.codecName)
+            }
+            if (state.firmwareVersion.isNotBlank()) {
+                metaParts.add("FW ${state.firmwareVersion}")
+            }
+            if (metaParts.isNotEmpty()) {
+                metaParts.add("V${state.protocolVersion}")
+                Spacer(modifier = Modifier.height(8.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(999.dp))
+                        .background(
+                            if (isDark) Color(0xFF1F1F23) else Color(0xFFEBEBF0)
+                        )
+                        .let { mod ->
+                            if (onCodecClick != null) mod.clickable(onClick = onCodecClick) else mod
+                        }
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = metaParts.joinToString("  •  "),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = textSecondary
+                    )
+                }
+            }
+            if (codecHud.isHfpCallActive) {
+                Spacer(modifier = Modifier.height(6.dp))
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(999.dp))
+                        .background(Color(0x33FF9500))
+                        .let { mod ->
+                            if (onCodecClick != null) mod.clickable(onClick = onCodecClick) else mod
+                        }
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = null,
+                            tint = Color(0xFFFF9500),
+                            modifier = Modifier.size(13.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = strings.hfpCallWarning,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFFFB703)
+                        )
+                    }
+                }
+            }
         }
 
     }
@@ -2774,87 +3076,62 @@ fun LanguageSheet(
 
 
 @Composable
-
 fun AboutSheet(
-
     strings: LocalizedStrings,
-
     textPrimary: Color,
-
     textSecondary: Color,
-
     accentColor: Color,
-
+    onOpenLab: () -> Unit,
     onClose: () -> Unit
-
 ) {
+    var tapCount by remember { mutableStateOf(0) }
 
     Column(
-
         modifier = Modifier
-
             .fillMaxWidth()
-
             .padding(horizontal = 24.dp, vertical = 20.dp),
-
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
-
         Box(
-
             modifier = Modifier
-
                 .size(68.dp)
-
                 .clip(CircleShape)
-
                 .background(accentColor.copy(alpha = 0.15f))
-
                 .border(2.dp, accentColor, CircleShape),
-
             contentAlignment = Alignment.Center
-
         ) {
-
             Icon(
-
                 imageVector = Icons.Default.Headphones,
-
                 contentDescription = null,
-
                 tint = accentColor,
-
                 modifier = Modifier.size(36.dp)
-
             )
-
         }
 
         Spacer(modifier = Modifier.height(14.dp))
 
         Text(
-
             text = strings.appName,
-
             fontSize = 22.sp,
-
             fontWeight = FontWeight.Bold,
-
             color = textPrimary
-
         )
 
         Text(
-
             text = strings.aboutVersion,
-
             fontSize = 13.sp,
-
             fontWeight = FontWeight.Medium,
-
-            color = textSecondary
-
+            color = if (tapCount in 1..4) accentColor else textSecondary,
+            modifier = Modifier
+                .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    tapCount++
+                    if (tapCount >= 5) {
+                        tapCount = 0
+                        onOpenLab()
+                    }
+                }
+                .padding(horizontal = 8.dp, vertical = 2.dp)
         )
 
         Spacer(modifier = Modifier.height(18.dp))
@@ -3189,7 +3466,11 @@ fun HexMonitorCard(
 
     onClear: () -> Unit,
 
-    onCopy: () -> Unit
+    onCopy: () -> Unit,
+
+    onExportFile: (() -> Unit)? = null,
+
+    onShare: (() -> Unit)? = null
 
 ) {
 
@@ -3264,6 +3545,28 @@ fun HexMonitorCard(
 
 
                 Row {
+
+                    if (onShare != null) {
+                        IconButton(onClick = onShare, modifier = Modifier.size(30.dp)) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = "Compartir",
+                                tint = Color(0xFF8E8E93),
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
+
+                    if (onExportFile != null) {
+                        IconButton(onClick = onExportFile, modifier = Modifier.size(30.dp)) {
+                            Icon(
+                                imageVector = Icons.Default.SaveAlt,
+                                contentDescription = "Guardar",
+                                tint = Color(0xFF8E8E93),
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
 
                     IconButton(onClick = onCopy, modifier = Modifier.size(30.dp)) {
 
@@ -3428,16 +3731,6 @@ fun HexMonitorCard(
 
 
 private fun hasBluetoothPermissions(context: Context): Boolean {
-
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
-        ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
-
-    } else {
-
-        ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED
-
-    }
-
+    return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
 }
 

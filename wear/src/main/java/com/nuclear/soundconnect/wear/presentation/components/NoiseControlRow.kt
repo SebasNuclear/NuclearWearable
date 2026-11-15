@@ -1,6 +1,8 @@
 package com.nuclear.soundconnect.wear.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -21,6 +23,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,8 +36,8 @@ import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import com.nuclear.soundconnect.bluetooth.NoiseControlMode
 import com.nuclear.soundconnect.wear.R
-import com.nuclear.soundconnect.wear.presentation.theme.NuclearBlack
 import com.nuclear.soundconnect.wear.presentation.theme.NuclearBorder
+import com.nuclear.soundconnect.wear.presentation.theme.NuclearInactiveCircle
 import com.nuclear.soundconnect.wear.presentation.theme.NuclearSurfaceCard
 import com.nuclear.soundconnect.wear.presentation.theme.NuclearTextPrimary
 import com.nuclear.soundconnect.wear.presentation.theme.NuclearTextSecondary
@@ -48,43 +51,51 @@ fun NoiseControlRow(
     isBusy: Boolean,
     onModeSelect: (NoiseControlMode) -> Unit,
     onAmbientConfigChange: (level: Int, voiceFocus: Boolean) -> Unit,
+    isConnected: Boolean = true,
     modifier: Modifier = Modifier
 ) {
+    val effectiveAccent = if (isConnected) accentColor else Color(0xFF3A3A3C)
+    val effectiveActiveTint = if (isConnected) Color.White else NuclearTextSecondary
+    val effectiveLabelActive = if (isConnected) accentColor else NuclearTextSecondary
+
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // 1. Fila de 3 Botones Principales (ANC / Ambiente / Off)
+        // 1. Fila de 3 Botones Circulares estilo QuickActionButton móvil (ANC / Ambiente / Off)
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Botón ANC
             NoiseButton(
                 iconRes = R.drawable.ic_anc_on,
                 label = "ANC",
                 isActive = currentMode == NoiseControlMode.ANC,
-                activeColor = accentColor,
+                activeBgColor = effectiveAccent,
+                activeIconTint = effectiveActiveTint,
+                activeLabelColor = effectiveLabelActive,
                 enabled = !isBusy,
                 onClick = { onModeSelect(NoiseControlMode.ANC) }
             )
 
-            // Botón Ambiente
             NoiseButton(
                 iconRes = R.drawable.ic_ambient_sound,
-                label = "Ambiente",
+                label = "Amb.",
                 isActive = currentMode == NoiseControlMode.AMBIENT,
-                activeColor = accentColor,
+                activeBgColor = effectiveAccent,
+                activeIconTint = effectiveActiveTint,
+                activeLabelColor = effectiveLabelActive,
                 enabled = !isBusy,
                 onClick = { onModeSelect(NoiseControlMode.AMBIENT) }
             )
 
-            // Botón Off
             NoiseButton(
                 iconRes = R.drawable.ic_anc_off,
                 label = "Off",
                 isActive = currentMode == NoiseControlMode.OFF,
-                activeColor = Color(0xFFD0D0D0),
+                activeBgColor = effectiveAccent,
+                activeIconTint = effectiveActiveTint,
+                activeLabelColor = effectiveLabelActive,
                 enabled = !isBusy,
                 onClick = { onModeSelect(NoiseControlMode.OFF) }
             )
@@ -96,66 +107,66 @@ fun NoiseControlRow(
             enter = fadeIn() + expandVertically(),
             exit = fadeOut() + shrinkVertically()
         ) {
+            val controlAccent = if (isConnected) accentColor else NuclearTextSecondary
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 14.dp, vertical = 6.dp),
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                // Stepper de Nivel (1..20)
+                // Stepper de Nivel (1..20) con iconos vectoriales puros
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
+                        .clip(RoundedCornerShape(14.dp))
                         .background(NuclearSurfaceCard)
-                        .border(1.dp, NuclearBorder, RoundedCornerShape(12.dp))
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                        .border(1.dp, NuclearBorder, RoundedCornerShape(14.dp))
+                        .padding(horizontal = 8.dp, vertical = 5.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    // Botón Menos
                     Box(
                         modifier = Modifier
                             .size(28.dp)
                             .clip(CircleShape)
-                            .background(Color(0x20FFFFFF))
+                            .background(NuclearInactiveCircle)
                             .clickable(enabled = !isBusy && ambientLevel > 1) {
                                 onAmbientConfigChange((ambientLevel - 1).coerceAtLeast(1), voiceFocus)
                             },
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "−",
-                            color = NuclearTextPrimary,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_minus),
+                            contentDescription = "Reducir nivel ambiente",
+                            tint = if (ambientLevel > 1) NuclearTextPrimary else NuclearTextSecondary,
+                            modifier = Modifier.size(16.dp)
                         )
                     }
 
                     Text(
                         text = "Nivel $ambientLevel / 20",
-                        color = accentColor,
+                        color = controlAccent,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
 
-                    // Botón Más
                     Box(
                         modifier = Modifier
                             .size(28.dp)
                             .clip(CircleShape)
-                            .background(Color(0x20FFFFFF))
+                            .background(NuclearInactiveCircle)
                             .clickable(enabled = !isBusy && ambientLevel < 20) {
                                 onAmbientConfigChange((ambientLevel + 1).coerceAtMost(20), voiceFocus)
                             },
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "+",
-                            color = NuclearTextPrimary,
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Bold
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_plus),
+                            contentDescription = "Subir nivel ambiente",
+                            tint = if (ambientLevel < 20) NuclearTextPrimary else NuclearTextSecondary,
+                            modifier = Modifier.size(16.dp)
                         )
                     }
                 }
@@ -164,17 +175,17 @@ fun NoiseControlRow(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(if (voiceFocus) accentColor.copy(alpha = 0.2f) else NuclearSurfaceCard)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(if (voiceFocus) controlAccent.copy(alpha = 0.16f) else NuclearSurfaceCard)
                         .border(
                             1.dp,
-                            if (voiceFocus) accentColor else NuclearBorder,
-                            RoundedCornerShape(12.dp)
+                            if (voiceFocus) controlAccent else NuclearBorder,
+                            RoundedCornerShape(14.dp)
                         )
                         .clickable(enabled = !isBusy) {
                             onAmbientConfigChange(ambientLevel, !voiceFocus)
                         }
-                        .padding(horizontal = 8.dp, vertical = 6.dp),
+                        .padding(horizontal = 10.dp, vertical = 7.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -183,17 +194,17 @@ fun NoiseControlRow(
                     ) {
                         Text(
                             text = "Enfoque en la voz",
-                            color = if (voiceFocus) accentColor else NuclearTextPrimary,
+                            color = if (voiceFocus) controlAccent else NuclearTextPrimary,
                             fontSize = 11.sp,
                             fontWeight = if (voiceFocus) FontWeight.SemiBold else FontWeight.Normal
                         )
                         if (voiceFocus) {
-                            Spacer(modifier = Modifier.width(5.dp))
-                            Text(
-                                text = "✓",
-                                color = accentColor,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_check),
+                                contentDescription = "Activado",
+                                tint = controlAccent,
+                                modifier = Modifier.size(13.dp)
                             )
                         }
                     }
@@ -208,13 +219,22 @@ private fun NoiseButton(
     iconRes: Int,
     label: String,
     isActive: Boolean,
-    activeColor: Color,
+    activeBgColor: Color,
+    activeIconTint: Color,
+    activeLabelColor: Color,
     enabled: Boolean,
     onClick: () -> Unit
 ) {
-    val bgColor = if (isActive) activeColor else NuclearSurfaceCard
-    val contentColor = if (isActive) NuclearBlack else NuclearTextPrimary
-    val borderColor = if (isActive) activeColor else NuclearBorder
+    val bgAnim by animateColorAsState(
+        targetValue = if (isActive) activeBgColor else NuclearInactiveCircle,
+        animationSpec = tween(220),
+        label = "noiseBgAnim"
+    )
+    val tintAnim by animateColorAsState(
+        targetValue = if (isActive) activeIconTint else NuclearTextSecondary,
+        animationSpec = tween(220),
+        label = "noiseTintAnim"
+    )
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -222,24 +242,23 @@ private fun NoiseButton(
     ) {
         Box(
             modifier = Modifier
-                .size(42.dp)
+                .size(46.dp)
                 .clip(CircleShape)
-                .background(bgColor)
-                .border(1.dp, borderColor, CircleShape)
+                .background(bgAnim)
                 .clickable(enabled = enabled, onClick = onClick),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 painter = painterResource(id = iconRes),
                 contentDescription = label,
-                tint = contentColor,
-                modifier = Modifier.size(20.dp)
+                tint = tintAnim,
+                modifier = Modifier.size(22.dp)
             )
         }
-        Spacer(modifier = Modifier.height(3.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = label,
-            color = if (isActive) activeColor else NuclearTextSecondary,
+            color = if (isActive) activeLabelColor else NuclearTextSecondary,
             fontSize = 10.sp,
             fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Normal
         )

@@ -152,7 +152,7 @@ class WearHeadsetRepository private constructor(private val context: Context) : 
      */
     fun setNoiseMode(mode: NoiseControlMode, onComplete: ((Boolean) -> Unit)? = null) {
         val currentState = _state.value
-        if (!currentState.modelFamily.hasAnc) {
+        if (!currentState.effectiveHasAnc) {
             onComplete?.invoke(false)
             return
         }
